@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ALEX RIVERA — Full Stack Trainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="page">
+  <div class="page-title">
+    <div class="eyebrow pixel">A WILD PORTFOLIO APPEARED</div>
+    <h1>ALEX RIVERA</h1>
+    <p>Full Stack Developer &mdash; walk around town, visit the buildings, and catch a Pokémon of your own before you leave!</p>
+  </div>
+
+  <div id="scaleOuter">
+  <div id="scaleInner">
+  <div class="console">
+    <div class="console-brand">PORTFOLIO ADVANCE</div>
+    <div class="screen-bezel">
+      <div id="gameScreen">
+
+        <div id="hud">
+          <span id="hudName">UTKARSH</span>
+          <span id="hudBadges">VISITED 0/5</span>
+          <button class="hud-btn" id="dexBtn">POKÉDEX (0)</button>
+        </div>
+
+        <div id="world"></div>
+        <div id="player" class="dir-down">
+          <div class="sprite">
+            <div class="cap"></div><div class="brim"></div>
+            <div class="head"></div><div class="eyes"></div>
+            <div class="body"></div><div class="legs"></div>
+          </div>
+        </div>
+
+        <div id="dialogue"><span id="dialogueText"></span><span class="arrow">▼</span></div>
+
+        <div id="bootScreen">
+          <div class="sprite-preview">🎮</div>
+          <div class="cart pixel">FULLSTACK CARTRIDGE</div>
+          <h2 class="pixel">ALEX RIVERA</h2>
+          <h3 class="pixel">— PORTFOLIO VERSION —</h3>
+          <div class="press-start pixel">PRESS START</div>
+        </div>
+
+        <div id="modalOverlay">
+          <div class="modal-panel" id="modalPanel"></div>
+        </div>
+
+        <div id="encounter">
+          <div class="flash"></div>
+          <div class="battle-top">
+            <div class="wild-mon hidden-mon" id="wildMon">❔</div>
+          </div>
+          <div class="battle-bottom">
+            <div class="ball-throw" id="ballThrow">⚫</div>
+          </div>
+          <div id="encounterText">A wild VISITOR-MON appeared!</div>
+          <div id="encounterActions">
+            <button class="btn-a" id="throwBtn">THROW POKÉ BALL</button>
+            <button class="btn-b" id="runBtn">RUN</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="dpad">
+        <div class="mid"></div>
+        <button class="up" data-dir="up">▲</button>
+        <button class="down" data-dir="down">▼</button>
+        <button class="left" data-dir="left">◀</button>
+        <button class="right" data-dir="right">▶</button>
+      </div>
+      <div class="startsel">
+        <button id="selectBtn">SELECT</button>
+        <button id="startBtn">START</button>
+      </div>
+      <div class="ab-buttons">
+        <button class="round-btn b pixel" id="bBtn">B</button>
+        <button class="round-btn a pixel" id="aBtn">A</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <p class="hint">Use <b>arrow keys</b> (or the on-screen D-pad) to walk. Step into a building's door to open that section. Step into <b>tall grass</b> for a chance to catch your own Pokémon and leave your mark.</p>
+
+  <footer class="credits">
+    Built by Alex Rivera &middot; <a href="#" id="githubLink">github.com/yourusername</a> &middot; <a href="#" id="linkedinLink">linkedin.com/in/yourusername</a>
+  </footer>
+</div>
+
+<script src="scrpit.js"></script>
+</body>
+</html>
