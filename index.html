@@ -6,229 +6,103 @@
 <title>UTKARSH JHA — Full Stack Trainer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<!-- Inline fallback styles included to ensure it renders flawlessly out of the box -->
 <style>
-  :root { 
-    --cell-size: 32px; /* Bigger tiles for crisper pixel art sizing */
-    --game-width: 320px;
-    --game-height: 280px;
-    --gb-screen-color: #c4cfa1; /* Classic retro LCD matrix green-gray */
-  }
-  
-  body { 
-    background: #1e1e24; 
-    color: #fff; 
-    font-family: 'VT323', monospace; 
-    margin: 0; 
-    padding: 20px; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    flex-direction: column;
-  }
-  
+  :root { --cell-size: 20px; }
+  body { background: #111; color: #fff; font-family: 'VT323', monospace; margin:0; padding: 20px; display: flex; justify-content: center; }
   .pixel { font-family: 'Press Start 2P', monospace; font-size: 10px; }
   .page { max-width: 600px; width: 100%; text-align: center; }
-  h1 { font-family: 'Press Start 2P', monospace; margin: 10px 0; color: #ffcb05; text-shadow: 3px 3px #3b4cca; font-size: 24px; }
+  h1 { font-family: 'Press Start 2P', monospace; margin: 10px 0; color: #ffcb05; text-shadow: 2px 2px #3b4cca; }
+  #scaleOuter { display: inline-block; background: #333; padding: 20px; border-radius: 20px; box-shadow: 0 10px 0 #222; margin: 20px 0; }
+  .console { background: #444; border-radius: 10px; padding: 15px; position: relative; }
+  .console-brand { font-family: 'Press Start 2P', monospace; font-size: 11px; color: #888; margin-bottom: 10px; text-align: left; }
+  .screen-bezel { background: #222; padding: 25px 25px 40px 25px; border-radius: 5px; box-shadow: inset 0 0 10px #000; }
+  #gameScreen { width: 320px; height: 240px; background: #8bac0f; position: relative; overflow: hidden; image-rendering: pixelated; border: 4px solid #0f380f; }
   
-  #scaleOuter { 
-    display: inline-block; 
-    background: #c34141; /* Iconic Red Game Boy Color Aesthetic */
-    padding: 25px; 
-    border-radius: 20px; 
-    box-shadow: inset -5px -5px 0px #802020, inset 5px 5px 0px #ff6a6a, 0 12px 0 #111; 
-    margin: 20px 0; 
-  }
+  /* HUD */
+  #hud { position: absolute; top:0; left:0; width:310px; background: rgba(15,56,15,0.9); color: #8bac0f; font-family: 'Press Start 2P', monospace; font-size: 8px; padding: 5px; display: flex; justify-content: space-between; align-items: center; z-index: 10; }
+  .hud-btn { background: #8bac0f; color: #0f380f; border: none; font-family: 'Press Start 2P', monospace; font-size: 7px; cursor: pointer; padding: 2px 4px; }
   
-  .console { position: relative; }
-  .console-brand { font-family: 'Press Start 2P', monospace; font-size: 10px; color: #eedddd; margin-bottom: 12px; letter-spacing: 2px; text-shadow: 1px 1px #222; }
+  /* Map & Grid */
+  #world { width: 320px; height: 240px; display: grid; grid-template-columns: repeat(16, 20px); grid-template-rows: repeat(12, 20px); position: absolute; }
+  .tile { width: 20px; height: 20px; box-sizing: border-box; }
+  .grass { background: #306230; border: 2px solid #0f380f; position: relative; }
+  .grass::after { content: '🌿'; font-size: 10px; position: absolute; top:2px; left:2px; }
+  .wall { background: #0f380f; }
+  .door { background: #fff; border: 2px solid #0f380f; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
   
-  .screen-bezel { 
-    background: #33363f; 
-    padding: 30px 35px 50px 35px; 
-    border-radius: 8px 8px 30px 8px; 
-    box-shadow: inset 0 5px 5px rgba(0,0,0,0.6);
-    border: 3px solid #222;
-    position: relative;
-  }
+  /* Player CSS Sprite */
+  #player { width: 20px; height: 20px; position: absolute; transition: left 0.1s, top 0.1s; z-index: 5; display: flex; justify-content: center; align-items: center; font-size: 14px;}
   
-  /* Retro Power Indicator Light */
-  .screen-bezel::before {
-    content: '';
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    width: 8px;
-    height: 8px;
-    background: #ff3333;
-    border-radius: 50%;
-    box-shadow: 0 0 4px #ff0000;
-  }
-
-  #gameScreen { 
-    width: var(--game-width); 
-    height: var(--game-height); 
-    background: var(--gb-screen-color); 
-    position: relative; 
-    overflow: hidden; 
-    image-rendering: pixelated; 
-    border: 4px solid #111;
-  }
-  
-  /* HUD & Panels */
-  #hud { 
-    position: absolute; top:0; left:0; width: 100%; 
-    background: #0f380f; color: var(--gb-screen-color); 
-    font-family: 'Press Start 2P', monospace; font-size: 8px; 
-    padding: 6px; display: flex; justify-content: space-between; 
-    align-items: center; z-index: 50; box-sizing: border-box;
-    border-bottom: 2px solid #0f380f;
-  }
-  .hud-btn { background: var(--gb-screen-color); color: #0f380f; border: 1px solid #0f380f; font-family: 'Press Start 2P', monospace; font-size: 7px; cursor: pointer; padding: 2px 5px; font-weight: bold;}
-  
-  /* Camera Viewport and Infinite Tile World System */
-  #camera {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0; left: 0;
-  }
-
-  #world { 
-    position: absolute;
-    display: grid; 
-    grid-template-columns: repeat(16, var(--cell-size)); 
-    grid-template-rows: repeat(12, var(--cell-size));
-    transition: transform 0.18s linear; /* Smooth visual camera step scrolling tracking player */
-  }
-  
-  /* Environmental Tile Engine Design */
-  .tile { width: var(--cell-size); height: var(--cell-size); position: relative; box-sizing: border-box; display: flex; align-items: center; justify-content: center;}
-  .tile.grass { background: #7fa35a; }
-  .tile.grass::after { content: '🌿'; font-size: 14px; position: absolute; }
-  .tile.path { background: #dfcc9f; border: 1px dashed rgba(0,0,0,0.04); }
-  .tile.wall { background: #4d5c3e; }
-  .tile.water { background: #68abd6; animation: waterWobble 1s infinite alternate; }
-  @keyframes waterWobble { 0% { opacity: 0.8; } 100% { opacity: 1; } }
-
-  /* Structured Multi-tile Sprites */
-  .building-sprite {
-    position: absolute;
-    background: #b15252;
-    border: 3px solid #1a0a0a;
-    border-radius: 4px;
-    z-index: 10;
-    box-shadow: 0 4px 0 rgba(0,0,0,0.15);
-  }
-  .building-roof {
-    height: 60%; background: #e06666;
-    border-bottom: 3px solid #1a0a0a;
-    display: flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 10px; font-weight: bold;
-  }
-  .building-door {
-    position: absolute; bottom: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 18px; height: 16px;
-    background: #ffeb3b; border: 2px solid #1a0a0a;
-    border-bottom: none;
-    animation: doorGlow 1.2s infinite alternate;
-  }
-  @keyframes doorGlow { 0% { background: #ffee55; } 100% { background: #fbc02d; } }
-
-  /* Fluid Step-Grid Player Design */
-  #player { 
-    width: var(--cell-size); 
-    height: var(--cell-size); 
-    position: absolute; 
-    z-index: 25; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    font-size: 22px;
-    transition: left 0.18s linear, top 0.18s linear; /* Matches loop render translation */
-  }
-  
-  /* UI System and View Engine Screens */
-  #bootScreen, #modalOverlay, #encounter { position: absolute; top:0; left:0; width:100%; height:100%; z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-  #bootScreen { background: #000; color: #fff; }
-  .press-start { margin-top: 25px; animation: blink 0.8s infinite; cursor: pointer; background: #ffcb05; color: #3b4cca; padding: 8px 14px; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 0 #2a35aa; }
+  /* Overlays & Screens */
+  #bootScreen, #modalOverlay, #encounter { position: absolute; top:0; left:0; width:100%; height:100%; z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  #bootScreen { background: #0f380f; color: #8bac0f; }
+  .press-start { margin-top: 30px; animation: blink 1s infinite; cursor: pointer; background: #8bac0f; color: #0f380f; padding: 5px 10px; border-radius: 3px; }
   @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
   
-  #modalOverlay { background: rgba(0,0,0,0.85); display: none; z-index: 120; }
-  .modal-panel { background: #f5f5f5; color: #111; border: 6px double #333; padding: 16px; width: 85%; max-height: 80%; overflow-y: auto; text-align: left; box-sizing: border-box; border-radius: 4px; font-family: sans-serif;}
-  .modal-panel h2 { font-family: 'Press Start 2P', monospace; font-size: 11px; margin-top: 0; color: #3b4cca; }
+  #modalOverlay { background: rgba(0,0,0,0.8); display: none; z-index: 30; }
+  .modal-panel { background: #8bac0f; color: #0f380f; border: 4px double #0f380f; padding: 15px; width: 80%; max-height: 80%; overflow-y: auto; text-align: left; box-sizing: border-box; }
   
-  /* High-Stakes Classical Battle Overlay Scene */
-  #encounter { background: var(--gb-screen-color); color: #0f380f; display: none; z-index: 110; font-family: 'Press Start 2P', monospace; font-size: 9px; padding: 10px; box-sizing: border-box; justify-content: space-between; }
-  .battle-arena { display: flex; flex-direction: column; width: 100%; height: 65%; justify-content: space-between; position: relative; margin-top: 20px;}
-  .enemy-status, .player-status { background: rgba(0,0,0,0.05); padding: 4px; border-bottom: 2px solid #0f380f; width: 130px; display: flex; flex-direction: column; gap: 2px;}
-  .hp-bar-bg { width: 100%; height: 4px; background: #889474; position: relative; }
-  .hp-bar-fill { width: 100%; height: 100%; background: #0f380f; }
-  .enemy-status { align-self: flex-start; }
-  .player-status { align-self: flex-end; }
-  .wild-mon-container { position: absolute; right: 20px; top: 10px; font-size: 45px; animation: bounceMon 0.6s infinite alternate; }
-  .player-back-container { position: absolute; left: 20px; bottom: 5px; font-size: 45px; }
-  @keyframes bounceMon { 0% { transform: translateY(0); } 100% { transform: translateY(-6px); } }
+  #encounter { background: #8bac0f; color: #0f380f; display: none; z-index: 25; font-family: 'Press Start 2P', monospace; font-size: 8px; }
+  .wild-mon { font-size: 40px; margin-bottom: 10px; }
+  #encounterActions { margin-top: 15px; display: flex; gap: 10px; }
+  #encounterActions button { font-family: 'Press Start 2P', monospace; font-size: 8px; padding: 5px; cursor: pointer; border: 2px solid #0f380f; background: #8bac0f; color: #0f380f; }
+  #encounterActions button:hover { background: #0f380f; color: #8bac0f; }
   
-  #encounterTextPanel { width: 100%; height: 30%; background: #fff; border: 3px double #0f380f; border-radius: 4px; padding: 6px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; }
-  #encounterActions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  #encounterActions button { font-family: 'Press Start 2P', monospace; font-size: 8px; padding: 4px; cursor: pointer; border: 1px solid #0f380f; background: #fff; color: #0f380f; font-weight: bold; }
-  #encounterActions button:hover { background: #0f380f; color: #fff; }
+  #dialogue { position: absolute; bottom: 5px; left: 5px; width: 300px; height: 45px; background: #fff; border: 3px double #0f380f; color: #0f380f; padding: 5px; box-sizing: border-box; display: none; z-index: 15; font-family: 'Press Start 2P', monospace; font-size: 8px; text-align: left; }
+  #dialogue .arrow { position: absolute; bottom: 2px; right: 5px; animation: blink 0.5s infinite; }
   
-  /* Hardware Map Interfaces layout */
-  .controls { margin-top: 25px; display: flex; justify-content: space-between; align-items: center; padding: 0 10px; }
+  /* Physical Hardware Controls Map */
+  .controls { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; background: #3a3a3a; padding: 15px; border-radius: 10px; }
   .dpad { position: relative; width: 90px; height: 90px; }
-  .dpad button { position: absolute; background: #222; color: #222; border: none; font-size: 0px; cursor: pointer; width: 30px; height: 30px; box-shadow: inset 0 2px 2px rgba(255,255,255,0.2); }
-  .dpad .up { top: 0; left: 30px; border-radius: 4px 4px 0 0; background: linear-gradient(#3a3a3a, #222); }
-  .dpad .down { bottom: 0; left: 30px; border-radius: 0 0 4px 4px; background: linear-gradient(#222, #151515); }
-  .dpad .left { top: 30px; left: 0; border-radius: 4px 0 0 4px; background: linear-gradient(to right, #3a3a3a, #222); }
-  .dpad .right { top: 30px; right: 0; border-radius: 0 4px 4px 0; background: linear-gradient(to right, #222, #151515); }
-  .dpad .mid { top: 30px; left: 30px; width: 30px; height: 30px; background: #222; position: absolute; border-radius: 2px; }
-  
-  .startsel { display: flex; gap: 12px; transform: rotate(-25deg); position: relative; top: 15px; }
-  .startsel button { background: #777b7e; color: #222; border: none; width: 45px; height: 10px; font-size: 0px; border-radius: 10px; box-shadow: -1px 2px 0px #444; cursor: pointer; }
-  
-  .ab-buttons { display: flex; gap: 12px; transform: rotate(-10deg); }
-  .round-btn { width: 38px; height: 38px; background: #222; border: none; border-radius: 50%; color: #888; font-size: 10px; font-weight: bold; cursor: pointer; box-shadow: -2px 3px 0px #000; position: relative; }
-  .round-btn span { position: absolute; bottom: -16px; left: 12px; color: #eedddd; font-size: 9px; font-family: 'Press Start 2P'; }
-  .round-btn:active { transform: translateY(2px); box-shadow: 0px 1px 0px #000; }
-  
-  .hint { font-size: 15px; color: #ccc; margin-top: 15px; line-height: 1.4; }
-  .credits { margin-top: 15px; font-size: 14px; color: #888; }
-  .credits a { color: #ffcb05; text-decoration: none; font-weight: bold; }
+  .dpad button { position: absolute; background: #222; color: #aaa; border: none; font-size: 12px; cursor: pointer; width: 30px; height: 30px; }
+  .dpad .up { top: 0; left: 30px; }
+  .dpad .down { bottom: 0; left: 30px; }
+  .dpad .left { top: 30px; left: 0; }
+  .dpad .right { top: 30px; right: 0; }
+  .dpad .mid { top: 30px; left: 30px; width: 30px; height: 30px; background: #222; position: absolute; }
+  .startsel { display: flex; gap: 10px; margin-top: 20px; }
+  .startsel button { background: #222; color: #aaa; border: none; padding: 5px 10px; font-size: 9px; border-radius: 10px; box-shadow: 0 3px #111; cursor: pointer; }
+  .ab-buttons { display: flex; gap: 15px; }
+  .round-btn { width: 40px; height: 40px; background: #a62424; border: none; border-radius: 50%; color: white; font-weight: bold; cursor: pointer; box-shadow: 0 4px #5c1111; }
+  .round-btn:active { transform: translateY(3px); box-shadow: 0 1px #5c1111; }
+  .hint { font-size: 16px; color: #aaa; margin-top: 15px; }
+  .credits a { color: #ffcb05; text-decoration: none; }
 </style>
 </head>
 <body>
 
 <div class="page">
   <div class="page-title">
-    <div class="eyebrow pixel" style="color: #ffcb05;">GEN II ENGINE EMULATION</div>
+    <div class="eyebrow pixel">A WILD PORTFOLIO APPEARED</div>
     <h1>UTKARSH JHA</h1>
-    <p style="margin:5px 0 15px 0; color:#aaa;">Full Stack Engineer &amp; Trainer</p>
+    <p>Full Stack Developer &mdash; walk around town, visit the buildings, and catch a Pokémon of your own before you leave!</p>
   </div>
 
   <div id="scaleOuter">
   <div id="scaleInner">
   <div class="console">
-    <div class="console-brand">COLOR ENGINE</div>
+    <div class="console-brand">PORTFOLIO ADVANCE</div>
     <div class="screen-bezel">
       <div id="gameScreen">
 
         <div id="hud">
           <span id="hudName">UTKARSH</span>
-          <span id="hudBadges">BADGES: 0/3</span>
-          <button class="hud-btn" id="dexBtn">DEX: 0</button>
+          <span id="hudBadges">VISITED 0/3</span>
+          <button class="hud-btn" id="dexBtn">POKÉDEX (0)</button>
         </div>
 
-        <div id="camera">
-          <div id="world"></div>
-          <div id="player">🚶‍♂️</div>
-        </div>
+        <div id="world"></div>
+        <div id="player">🚶‍♂️</div>
+
+        <div id="dialogue"><span id="dialogueText"></span><span class="arrow">▼</span></div>
 
         <div id="bootScreen">
-          <div style="font-size:50px; animation: bounceMon 1s infinite alternate;">🐉</div>
-          <div class="pixel" style="margin: 15px 0 5px 0; color:#ffcb05; letter-spacing:1px;">POKÉMON STYLE</div>
-          <h2 class="pixel" style="font-size:11px; margin: 0 0 25px 0; color:#fff;">PORTFOLIO VERSION</h2>
+          <div class="sprite-preview" style="font-size:40px;">🎮</div>
+          <div class="cart pixel" style="margin: 10px 0;">FULLSTACK CARTRIDGE</div>
+          <h2 class="pixel" style="font-size:14px; color:#fff;">UTKARSH JHA</h2>
+          <h3 class="pixel" style="font-size:10px; margin-bottom:20px;">— PORTFOLIO VERSION —</h3>
           <div class="press-start pixel" id="startEngineBtn">PRESS START</div>
         </div>
 
@@ -236,28 +110,18 @@
           <div class="modal-panel" id="modalPanel"></div>
         </div>
 
-        <!-- High Fidelity Classic Battle Setup Engine UI -->
         <div id="encounter">
-          <div class="battle-arena">
-            <div class="enemy-status">
-              <div id="bEnemyName">WILD MON</div>
-              <div class="hp-bar-bg"><div class="hp-bar-fill" id="enemyHp"></div></div>
-            </div>
-            <div class="wild-mon-container" id="wildMon">❔</div>
-            
-            <div class="player-back-container">🎒</div>
-            <div class="player-status">
-              <div>TRAINER</div>
-              <div class="hp-bar-bg"><div class="hp-bar-fill"></div></div>
-            </div>
+          <div class="flash"></div>
+          <div class="battle-top">
+            <div class="wild-mon" id="wildMon">❔</div>
           </div>
-          
-          <div id="encounterTextPanel">
-            <div id="encounterText">A wild encounter initialized!</div>
-            <div id="encounterActions">
-              <button id="throwBtn">POKÉ BALL</button>
-              <button id="runBtn">RUN</button>
-            </div>
+          <div class="battle-bottom">
+            <div class="ball-throw" id="ballThrow">⚫</div>
+          </div>
+          <div id="encounterText" style="margin: 10px 0;">A wild Pokémon appeared!</div>
+          <div id="encounterActions">
+            <button class="btn-a" id="throwBtn">THROW POKÉ BALL</button>
+            <button class="btn-b" id="runBtn">RUN</button>
           </div>
         </div>
 
@@ -273,301 +137,242 @@
         <button class="right" data-dir="right">▶</button>
       </div>
       <div class="startsel">
-        <button id="selectBtn">SEL</button>
+        <button id="selectBtn">SELECT</button>
         <button id="startBtn">START</button>
       </div>
       <div class="ab-buttons">
-        <button class="round-btn b" id="bBtn"><span>B</span></button>
-        <button class="round-btn a" id="aBtn"><span>A</span></button>
+        <button class="round-btn b pixel" id="bBtn">B</button>
+        <button class="round-btn a pixel" id="aBtn">A</button>
       </div>
     </div>
   </div>
   </div>
   </div>
 
-  <p class="hint">Use <b>Arrow Keys</b> or <b>WASD</b> on your desktop keyboard, or press the physical D-Pad configurations on your screen to step around the map grid viewport seamlessly.</p>
+  <p class="hint">Use <b>arrow keys</b> (or the on-screen D-pad) to walk. Step into a building's door to open that section. Step into <b>tall grass</b> for a chance to catch your own Pokémon.</p>
 
   <footer class="credits">
-    Built by Utkarsh Jha &middot; <a href="https://github.com/Utkarsh-webdev" target="_blank">GitHub</a> &middot; <a href="https://www.linkedin.com/in/jhautkarsh27/" target="_blank">LinkedIn</a>
+    Built by Utkarsh Jha &middot; <a href="https://github.com/Utkarsh-webdev" target="_blank">github.com/utkarsh-webdev</a> &middot; <a href="https://www.linkedin.com/in/jhautkarsh27/" target="_blank">linkedin.com/in/jhautkarsh27</a>
   </footer>
 </div>
 
 <script>
-  // Advanced Grid Engine Matrix (16 cols x 12 rows)
-  // W = Wall/Tree, G = Grass, P = Path, . = Transparent floor
+  // Game Map Definition (16 columns x 12 rows)
+  // W = Wall, G = Grass, D = Door, . = Empty Path
   const MAP_WIDTH = 16;
   const MAP_HEIGHT = 12;
-  const TILE_SIZE = 32;
+  const TILE_SIZE = 20;
 
   const mapLayout = [
     ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
-    ['W','P','P','P','P','P','P','P','W','P','P','P','P','P','P','W'],
-    ['W','P','.','.','P','.','.','P','W','P','.','.','P','P','P','W'],
-    ['W','P','.','.','P','.','.','P','P','P','.','.','P','P','P','W'],
-    ['W','P','P','P','P','P','P','P','W','P','P','P','P','P','P','W'],
-    ['W','P','P','P','P','P','P','P','W','W','W','P','W','W','W','W'],
-    ['W','P','P','P','P','P','P','P','P','P','P','P','P','P','P','W'],
-    ['W','G','G','G','G','P','P','P','P','P','P','G','G','G','G','W'],
-    ['W','G','G','G','G','P','P','P','P','P','P','G','G','G','G','W'],
-    ['W','G','G','G','G','P','P','W','W','P','P','G','G','G','G','W'],
-    ['W','G','G','G','G','P','P','W','W','P','P','G','G','G','G','W'],
+    ['W','.','.','.','W','.','.','.','W','.','.','.','W','G','G','W'],
+    ['W','.','D','.','W','.','D','.','W','.','D','.','W','G','G','W'],
+    ['W','.','.','.','W','.','.','.','W','.','.','.','W','G','G','W'],
+    ['W','W','W','.','W','W','W','.','W','W','W','.','W','G','G','W'],
+    ['W','.','.','.','.','.','.','.','.','.','.','.','.','.','.','W'],
+    ['W','.','.','.','.','.','.','.','.','.','.','.','.','.','.','W'],
+    ['W','G','G','G','G','.','.','.','.','.','.','G','G','G','G','W'],
+    ['W','G','G','G','G','.','.','.','.','.','.','G','G','G','G','W'],
+    ['W','G','G','G','G','.','.','.','.','.','.','G','G','G','G','W'],
+    ['W','G','G','G','G','.','.','.','.','.','.','G','G','G','G','W'],
     ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W']
   ];
 
-  // Specific Multi-Tile Structured Buildings Placement Metadata Array
-  const buildings = [
-    { x: 2, y: 1, w: 2, h: 2, doorX: 2, doorY: 2, title: "ABOUT ME", content: "<h2>About Utkarsh Jha</h2><p>I am a Professional Full-Stack Developer and Specialized Technical Trainer. I construct scalable software systems, design interactive learning architectures, and deploy custom web engines.</p><h3>Core Specialties</h3><ul><li>JavaScript Architecture (Node, React, Next.js)</li><li>Cloud Systems Deployment & System Designs</li><li>Gamified UX Engineering Systems</li></ul>" },
-    { x: 5, y: 1, w: 2, h: 2, doorX: 5, doorY: 2, title: "PROJECTS", content: "<h2>Product Showcase Hub</h2><p>Explore some high-octane engineering blueprints deployed live:</p><ul><li><b>Portfolio Advance Engine:</b> Custom optimized 2D step-grid engine emulation handling visual state triggers.</li><li><b>Full-Stack Dev pipeline:</b> Automated telemetry dashboards built for monitoring real-time server cluster runtimes.</li></ul>" },
-    { x: 10, y: 1, w: 2, h: 2, doorX: 10, doorY: 2, title: "CONTACT", content: "<h2>Let's Start an Encounter!</h2><p>Looking for a specialized enterprise architecture trainer or developer to optimize workflows?</p><p><b>Email:</b> contact@utkarsh.dev</p><p>Check out my real production nodes using the foot links below!</p>" }
-  ];
+  // Association mapping for doors
+  const buildingData = {
+    "1,2": { title: "ABOUT ME", content: "<h3>Utkarsh Jha - Full Stack Instructor & Engineer</h3><p>Passionate educator and technologist focused on scalable web systems, clean architecture, and gamified web experiences.</p>" },
+    "1,6": { title: "PROJECTS", content: "<h3>My Deployments</h3><ul><li><b>Portfolio Advance:</b> This retro 8-bit game engine.</li><li><b>DevMon:</b> A full-stack developer tracker pipeline.</li></ul>" },
+    "1,10": { title: "CONTACT", content: "<h3>Get in Touch</h3><p>Email: contact@utkarsh.dev</p><p>Connect via LinkedIn or check out GitHub!</p>" }
+  };
 
   const pokemonList = [
-    { name: "Pikachu", icon: "⚡", hp: 100 },
-    { name: "Bulbasaur", icon: "🍃", hp: 120 },
-    { name: "Charmander", icon: "🔥", hp: 110 },
-    { name: "Squirtle", icon: "💧", hp: 115 },
-    { name: "Mewtwo", icon: "🔮", hp: 200 }
+    { name: "Pikachu", icon: "⚡" },
+    { name: "Bulbasaur", icon: "🍃" },
+    { name: "Charmander", icon: "🔥" },
+    { name: "Squirtle", icon: "💧" }
   ];
 
-  // Engine Dynamic States
+  // Game State
   let playerX = 4;
   let playerY = 6;
-  let isMoving = false;
-  let visitedBadges = new Set();
-  let caughtDex = [];
+  let visitedBuildings = new Set();
+  let caughtPokemon = [];
   let currentWildMon = null;
-  let currentWildHp = 100;
-  let activeState = 'boot'; // boot, map, modal, encounter
+  let activeState = 'boot'; // boot, map, dialogue, modal, encounter
 
-  // DOM Elements cache
+  // DOM Elements
   const world = document.getElementById('world');
   const player = document.getElementById('player');
-  const camera = document.getElementById('camera');
   const bootScreen = document.getElementById('bootScreen');
+  const dialogue = document.getElementById('dialogue');
+  const dialogueText = document.getElementById('dialogueText');
   const modalOverlay = document.getElementById('modalOverlay');
   const modalPanel = document.getElementById('modalPanel');
   const encounter = document.getElementById('encounter');
   const wildMon = document.getElementById('wildMon');
   const encounterText = document.getElementById('encounterText');
-  const bEnemyName = document.getElementById('bEnemyName');
-  const enemyHpFill = document.getElementById('enemyHp');
   const hudBadges = document.getElementById('hudBadges');
   const dexBtn = document.getElementById('dexBtn');
 
-  // Render Maps and Buildings Structures
-  function buildWorldGrid() {
+  // Initialize Map
+  function initMap() {
     world.innerHTML = '';
-    // Build Base Environmental Tiles
     for (let r = 0; r < MAP_HEIGHT; r++) {
       for (let c = 0; c < MAP_WIDTH; c++) {
         const tile = document.createElement('div');
         tile.classList.add('tile');
         const type = mapLayout[r][c];
-        
         if (type === 'W') tile.classList.add('wall');
-        else if (type === 'G') tile.classList.add('grass');
-        else tile.classList.add('path');
-        
+        if (type === 'G') tile.classList.add('grass');
+        if (type === 'D') tile.classList.add('door');
         world.appendChild(tile);
       }
     }
-
-    // Inject Separated Visual Building Components Over the Layer Grid Map
-    buildings.forEach((b, index) => {
-      const el = document.createElement('div');
-      el.classList.add('building-sprite');
-      el.style.left = (b.x * TILE_SIZE) + 'px';
-      el.style.top = (b.y * TILE_SIZE) + 'px';
-      el.style.width = (b.w * TILE_SIZE) + 'px';
-      el.style.height = (b.h * TILE_SIZE) + 'px';
-      
-      el.innerHTML = `
-        <div class="building-roof">${b.title[0]}</div>
-        <div class="building-door" data-id="${index}"></div>
-      `;
-      world.appendChild(el);
-    });
-
-    updateCameraEngine();
+    updatePlayerPosition();
   }
 
-  function updateCameraEngine() {
-    // Player Visual Grid Matrix Placement
+  function updatePlayerPosition() {
     player.style.left = (playerX * TILE_SIZE) + 'px';
     player.style.top = (playerY * TILE_SIZE) + 'px';
-
-    // Camera Center Tracking offsets
-    const offsetX = (varX() - (playerX * TILE_SIZE));
-    const offsetY = (varY() - (playerY * TILE_SIZE));
-    
-    // Dynamic Center Focus clamp calculations
-    world.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
   }
 
-  function varX() { return (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--game-width')) / 2) - (TILE_SIZE/2); }
-  function varY() { return (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--game-height')) / 2) - (TILE_SIZE/2); }
+  // Handle Movement Engine
+  function movePlayer(dx, dy) {
+    if (activeState !== 'map') return;
 
-  // Safe Loop Linear Step Motion Mechanics
-  function tryStepMove(dx, dy) {
-    if (activeState !== 'map' || isMoving) return;
+    let targetX = playerX + dx;
+    let targetY = playerY + dy;
 
-    const targetX = playerX + dx;
-    const targetY = playerY + dy;
-
-    // Boundaries check safety layer
+    // Boundaries
     if (targetX < 0 || targetX >= MAP_WIDTH || targetY < 0 || targetY >= MAP_HEIGHT) return;
 
-    // Collision Check Matrix
-    const tileType = mapLayout[targetY][targetX];
-    if (tileType === 'W') return; 
+    let targetTile = mapLayout[targetY][targetX];
 
-    // Building Collision Layer Check
-    const targetBuilding = buildings.find(b => targetX >= b.x && targetX < b.x + b.w && targetY >= b.y && targetY < b.y + b.h);
-    
-    if (targetBuilding) {
-      // Allow passing only if walking into the door specifically
-      if (targetX === targetBuilding.doorX && targetY === targetBuilding.doorY) {
-        executeStepAction(targetX, targetY, () => triggerBuildingInterface(targetBuilding));
-        return;
-      }
-      return; // Intercept solid wall block boundaries of structures
+    // Collision Check
+    if (targetTile === 'W') return;
+
+    // Move player
+    playerX = targetX;
+    playerY = targetY;
+    updatePlayerPosition();
+
+    // Check interaction trigger
+    if (targetTile === 'D') {
+      triggerBuilding(targetY, targetX);
+      return;
     }
 
-    // Step animation lock verification loop
-    executeStepAction(targetX, targetY, () => {
-      // Post-step triggers
-      if (tileType === 'G' && Math.random() < 0.22) {
-        initiateBattleSequence();
+    if (targetTile === 'G') {
+      if (Math.random() < 0.25) { // 25% chance of wild encounter
+        triggerEncounter();
       }
-    });
+    }
   }
 
-  function executeStepAction(tx, ty, callback) {
-    isMoving = true;
-    playerX = tx;
-    playerY = ty;
-    updateCameraEngine();
-
-    // Lock movement until standard CSS transition ends smoothly
-    setTimeout(() => {
-      isMoving = false;
-      callback();
-    }, 180);
-  }
-
-  // Interactive UI Features
-  function triggerBuildingInterface(building) {
-    activeState = 'modal';
-    visitedBadges.add(building.title);
-    hudBadges.innerText = `BADGES: ${visitedBadges.size}/3`;
+  // Feature actions
+  function triggerBuilding(r, c) {
+    let key = `${r},${c}`;
+    let data = buildingData[key] || { title: "Building", content: "Inside structural block." };
+    visitedBuildings.add(key);
+    hudBadges.innerText = `VISITED ${visitedBuildings.size}/3`;
     
-    modalPanel.innerHTML = `
-      ${building.content}
-      <hr style="margin:15px 0; border:1px dashed #ccc;">
-      <button onclick="closeActiveModal()" class="pixel" style="background:#333; color:#fff; border:none; padding:8px 12px; cursor:pointer; border-radius:3px;">RETURN TO OVERWORLD (B)</button>
-    `;
+    activeState = 'modal';
+    modalPanel.innerHTML = `<h2>${data.title}</h2><hr>${data.content}<br><button onclick="closeModal()" style="font-family:'Press Start 2P'; font-size:10px; cursor:pointer; padding:5px;">CLOSE (B)</button>`;
     modalOverlay.style.display = 'flex';
   }
 
-  function closeActiveModal() {
+  function closeModal() {
     modalOverlay.style.display = 'none';
     activeState = 'map';
-    // Back player out downwards safely from door to avoid lock loop trap
+    // Back up the trainer one step down so they don't loop get trapped inside the entry collision
     playerY += 1;
-    updateCameraEngine();
+    updatePlayerPosition();
   }
 
-  function initiateBattleSequence() {
+  function triggerEncounter() {
     activeState = 'encounter';
     currentWildMon = pokemonList[Math.floor(Math.random() * pokemonList.length)];
-    currentWildHp = currentWildMon.hp;
-    
-    bEnemyName.innerText = currentWildMon.name.toUpperCase();
     wildMon.innerText = currentWildMon.icon;
-    enemyHpFill.style.width = '100%';
-    encounterText.innerText = `A wild ${currentWildMon.name.toUpperCase()} appeared! Go Poké Ball!`;
-    
+    encounterText.innerText = `A wild ${currentWildMon.name.toUpperCase()} appeared!`;
     encounter.style.display = 'flex';
   }
 
-  // Combat Handlers
+  // Action Buttons
+  document.getElementById('startEngineBtn').addEventListener('click', () => {
+    bootScreen.style.display = 'none';
+    activeState = 'map';
+    initMap();
+  });
+
+  document.getElementById('runBtn').addEventListener('click', () => {
+    encounter.style.display = 'none';
+    activeState = 'map';
+  });
+
   document.getElementById('throwBtn').addEventListener('click', () => {
-    encounterText.innerText = "Trainer threw a POKÉ BALL...";
+    const ballThrow = document.getElementById('ballThrow');
+    ballThrow.style.transform = 'scale(2)';
+    encounterText.innerText = "Throwing Poké Ball...";
     
     setTimeout(() => {
-      const catchRoll = Math.random();
-      if (catchRoll > 0.35) {
-        encounterText.innerText = `All right! ${currentWildMon.name.toUpperCase()} was caught successfully!`;
-        if(!caughtDex.some(p => p.name === currentWildMon.name)) {
-          caughtDex.push(currentWildMon);
+      ballThrow.style.transform = 'scale(1)';
+      if (Math.random() > 0.3) {
+        encounterText.innerText = `All right! ${currentWildMon.name.toUpperCase()} was caught!`;
+        if(!caughtPokemon.some(p => p.name === currentWildMon.name)) {
+          caughtPokemon.push(currentWildMon);
         }
-        dexBtn.innerText = `DEX: ${caughtDex.length}`;
+        dexBtn.innerText = `POKÉDEX (${caughtPokemon.length})`;
         setTimeout(() => {
           encounter.style.display = 'none';
           activeState = 'map';
         }, 1500);
       } else {
-        // Pokémon puts up a fight
-        currentWildHp = Math.max(0, currentWildHp - 30);
-        enemyHpFill.style.width = ((currentWildHp / currentWildMon.hp) * 100) + '%';
-        encounterText.innerText = `Shoot! It broke free! The Pokémon is getting tired.`;
+        encounterText.innerText = "Oh no! The Pokémon broke free! Try again.";
       }
-    }, 900);
-  });
-
-  document.getElementById('runBtn').addEventListener('click', () => {
-    encounterText.innerText = "Escaped safely!";
-    setTimeout(() => {
-      encounter.style.display = 'none';
-      activeState = 'map';
-    }, 600);
+    }, 1000);
   });
 
   dexBtn.addEventListener('click', () => {
-    if(activeState !== 'map') return;
     activeState = 'modal';
-    let inventory = caughtDex.length === 0 
-      ? "<p>No entries found! Walk through the tall grass sectors to capture encounters.</p>" 
-      : "<div style='display:grid; grid-template-columns:1fr 1fr; gap:10px;'>" + caughtDex.map(p => `<div style='background:#e0e0e0; padding:8px; border-radius:4px;'>${p.icon} <b>${p.name.toUpperCase()}</b></div>`).join('') + "</div>";
-    
-    modalPanel.innerHTML = `<h2>POKÉDEX BLUEPRINT LOG</h2><hr style='margin-bottom:15px;'>${inventory}<br><br><button onclick="activeState='map'; modalOverlay.style.display='none';" class="pixel" style="background:#333; color:#fff; border:none; padding:8px 12px; cursor:pointer;">EXIT</button>`;
+    let content = caughtPokemon.length === 0 ? "<p>Your party Dex inventory is empty! Walk in the tall green grass to find wildlife.</p>" : "<ul>" + caughtPokemon.map(p => `<li>${p.icon} ${p.name}</li>`).join('') + "</ul>";
+    modalPanel.innerHTML = `<h2>POKÉDEX</h2><hr>${content}<br><button onclick="activeState='map'; modalOverlay.style.display='none';" style="font-family:'Press Start 2P'; font-size:10px; cursor:pointer; padding:5px;">CLOSE</button>`;
     modalOverlay.style.display = 'flex';
   });
 
-  // Action Button Listeners
-  document.getElementById('startEngineBtn').addEventListener('click', () => {
-    bootScreen.style.display = 'none';
-    activeState = 'map';
-    buildWorldGrid();
-  });
-
-  // Input Mapping Systems
+  // Event Listeners for controls
   window.addEventListener('keydown', (e) => {
-    const key = e.key.toLowerCase();
-    if (key === 'arrowup' || key === 'w') tryStepMove(0, -1);
-    if (key === 'arrowdown' || key === 's') tryStepMove(0, 1);
-    if (key === 'arrowleft' || key === 'a') tryStepMove(-1, 0);
-    if (key === 'arrowright' || key === 'd') tryStepMove(1, 0);
+    if (e.key === 'ArrowUp' || e.key === 'w') movePlayer(0, -1);
+    if (e.key === 'ArrowDown' || e.key === 's') movePlayer(0, 1);
+    if (e.key === 'ArrowLeft' || e.key === 'a') movePlayer(-1, 0);
+    if (e.key === 'ArrowRight' || e.key === 'd') movePlayer(1, 0);
+    if (e.key === 'Escape' && activeState === 'modal') closeModal();
   });
 
-  // Screen Hardware Layout D-Pad Trigger Wire bindings
+  // Hardware D-pad handlers
   document.querySelectorAll('.dpad button').forEach(btn => {
     btn.addEventListener('click', () => {
       const dir = btn.getAttribute('data-dir');
-      if (dir === 'up') tryStepMove(0, -1);
-      if (dir === 'down') tryStepMove(0, 1);
-      if (dir === 'left') tryStepMove(-1, 0);
-      if (dir === 'right') tryStepMove(1, 0);
+      if (dir === 'up') movePlayer(0, -1);
+      if (dir === 'down') movePlayer(0, 1);
+      if (dir === 'left') movePlayer(-1, 0);
+      if (dir === 'right') movePlayer(1, 0);
     });
   });
 
+  // A / B Hardware Button hooks
   document.getElementById('bBtn').addEventListener('click', () => {
-    if (activeState === 'modal') closeActiveModal();
+    if (activeState === 'modal') closeModal();
+    if (activeState === 'encounter') { encounter.style.display = 'none'; activeState = 'map'; }
   });
   
   document.getElementById('aBtn').addEventListener('click', () => {
-    if (activeState === 'boot') document.getElementById('startEngineBtn').click();
+    if (activeState === 'boot') {
+      document.getElementById('startEngineBtn').click();
+    } else if (activeState === 'encounter') {
+      document.getElementById('throwBtn').click();
+    }
   });
+
 </script>
 </body>
 </html>
