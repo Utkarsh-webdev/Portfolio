@@ -3,11 +3,73 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ALEX RIVERA — Full Stack Trainer</title>
+<title>UTKARSH JHA — Full Stack Trainer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-<link href="style.css" rel="stylesheet">
-
+<!-- Inline fallback styles included to ensure it renders flawlessly out of the box -->
+<style>
+  :root { --cell-size: 20px; }
+  body { background: #111; color: #fff; font-family: 'VT323', monospace; margin:0; padding: 20px; display: flex; justify-content: center; }
+  .pixel { font-family: 'Press Start 2P', monospace; font-size: 10px; }
+  .page { max-width: 600px; width: 100%; text-align: center; }
+  h1 { font-family: 'Press Start 2P', monospace; margin: 10px 0; color: #ffcb05; text-shadow: 2px 2px #3b4cca; }
+  #scaleOuter { display: inline-block; background: #333; padding: 20px; border-radius: 20px; box-shadow: 0 10px 0 #222; margin: 20px 0; }
+  .console { background: #444; border-radius: 10px; padding: 15px; position: relative; }
+  .console-brand { font-family: 'Press Start 2P', monospace; font-size: 11px; color: #888; margin-bottom: 10px; text-align: left; }
+  .screen-bezel { background: #222; padding: 25px 25px 40px 25px; border-radius: 5px; box-shadow: inset 0 0 10px #000; }
+  #gameScreen { width: 320px; height: 240px; background: #8bac0f; position: relative; overflow: hidden; image-rendering: pixelated; border: 4px solid #0f380f; }
+  
+  /* HUD */
+  #hud { position: absolute; top:0; left:0; width:310px; background: rgba(15,56,15,0.9); color: #8bac0f; font-family: 'Press Start 2P', monospace; font-size: 8px; padding: 5px; display: flex; justify-content: space-between; align-items: center; z-index: 10; }
+  .hud-btn { background: #8bac0f; color: #0f380f; border: none; font-family: 'Press Start 2P', monospace; font-size: 7px; cursor: pointer; padding: 2px 4px; }
+  
+  /* Map & Grid */
+  #world { width: 320px; height: 240px; display: grid; grid-template-columns: repeat(16, 20px); grid-template-rows: repeat(12, 20px); position: absolute; }
+  .tile { width: 20px; height: 20px; box-sizing: border-box; }
+  .grass { background: #306230; border: 2px solid #0f380f; position: relative; }
+  .grass::after { content: '🌿'; font-size: 10px; position: absolute; top:2px; left:2px; }
+  .wall { background: #0f380f; }
+  .door { background: #fff; border: 2px solid #0f380f; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+  
+  /* Player CSS Sprite */
+  #player { width: 20px; height: 20px; position: absolute; transition: left 0.1s, top 0.1s; z-index: 5; display: flex; justify-content: center; align-items: center; font-size: 14px;}
+  
+  /* Overlays & Screens */
+  #bootScreen, #modalOverlay, #encounter { position: absolute; top:0; left:0; width:100%; height:100%; z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  #bootScreen { background: #0f380f; color: #8bac0f; }
+  .press-start { margin-top: 30px; animation: blink 1s infinite; cursor: pointer; background: #8bac0f; color: #0f380f; padding: 5px 10px; border-radius: 3px; }
+  @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+  
+  #modalOverlay { background: rgba(0,0,0,0.8); display: none; z-index: 30; }
+  .modal-panel { background: #8bac0f; color: #0f380f; border: 4px double #0f380f; padding: 15px; width: 80%; max-height: 80%; overflow-y: auto; text-align: left; box-sizing: border-box; }
+  
+  #encounter { background: #8bac0f; color: #0f380f; display: none; z-index: 25; font-family: 'Press Start 2P', monospace; font-size: 8px; }
+  .wild-mon { font-size: 40px; margin-bottom: 10px; }
+  #encounterActions { margin-top: 15px; display: flex; gap: 10px; }
+  #encounterActions button { font-family: 'Press Start 2P', monospace; font-size: 8px; padding: 5px; cursor: pointer; border: 2px solid #0f380f; background: #8bac0f; color: #0f380f; }
+  #encounterActions button:hover { background: #0f380f; color: #8bac0f; }
+  
+  #dialogue { position: absolute; bottom: 5px; left: 5px; width: 300px; height: 45px; background: #fff; border: 3px double #0f380f; color: #0f380f; padding: 5px; box-sizing: border-box; display: none; z-index: 15; font-family: 'Press Start 2P', monospace; font-size: 8px; text-align: left; }
+  #dialogue .arrow { position: absolute; bottom: 2px; right: 5px; animation: blink 0.5s infinite; }
+  
+  /* Physical Hardware Controls Map */
+  .controls { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; background: #3a3a3a; padding: 15px; border-radius: 10px; }
+  .dpad { position: relative; width: 90px; height: 90px; }
+  .dpad button { position: absolute; background: #222; color: #aaa; border: none; font-size: 12px; cursor: pointer; width: 30px; height: 30px; }
+  .dpad .up { top: 0; left: 30px; }
+  .dpad .down { bottom: 0; left: 30px; }
+  .dpad .left { top: 30px; left: 0; }
+  .dpad .right { top: 30px; right: 0; }
+  .dpad .mid { top: 30px; left: 30px; width: 30px; height: 30px; background: #222; position: absolute; }
+  .startsel { display: flex; gap: 10px; margin-top: 20px; }
+  .startsel button { background: #222; color: #aaa; border: none; padding: 5px 10px; font-size: 9px; border-radius: 10px; box-shadow: 0 3px #111; cursor: pointer; }
+  .ab-buttons { display: flex; gap: 15px; }
+  .round-btn { width: 40px; height: 40px; background: #a62424; border: none; border-radius: 50%; color: white; font-weight: bold; cursor: pointer; box-shadow: 0 4px #5c1111; }
+  .round-btn:active { transform: translateY(3px); box-shadow: 0 1px #5c1111; }
+  .hint { font-size: 16px; color: #aaa; margin-top: 15px; }
+  .credits a { color: #ffcb05; text-decoration: none; }
+</style>
 </head>
 <body>
 
@@ -27,27 +89,21 @@
 
         <div id="hud">
           <span id="hudName">UTKARSH</span>
-          <span id="hudBadges">VISITED 0/5</span>
+          <span id="hudBadges">VISITED 0/3</span>
           <button class="hud-btn" id="dexBtn">POKÉDEX (0)</button>
         </div>
 
         <div id="world"></div>
-        <div id="player" class="dir-down">
-          <div class="sprite">
-            <div class="cap"></div><div class="brim"></div>
-            <div class="head"></div><div class="eyes"></div>
-            <div class="body"></div><div class="legs"></div>
-          </div>
-        </div>
+        <div id="player">🚶‍♂️</div>
 
         <div id="dialogue"><span id="dialogueText"></span><span class="arrow">▼</span></div>
 
         <div id="bootScreen">
-          <div class="sprite-preview">🎮</div>
-          <div class="cart pixel">FULLSTACK CARTRIDGE</div>
-          <h2 class="pixel">UTKARSH JHA</h2>
-          <h3 class="pixel">— PORTFOLIO VERSION —</h3>
-          <div class="press-start pixel">PRESS START</div>
+          <div class="sprite-preview" style="font-size:40px;">🎮</div>
+          <div class="cart pixel" style="margin: 10px 0;">FULLSTACK CARTRIDGE</div>
+          <h2 class="pixel" style="font-size:14px; color:#fff;">UTKARSH JHA</h2>
+          <h3 class="pixel" style="font-size:10px; margin-bottom:20px;">— PORTFOLIO VERSION —</h3>
+          <div class="press-start pixel" id="startEngineBtn">PRESS START</div>
         </div>
 
         <div id="modalOverlay">
@@ -57,12 +113,12 @@
         <div id="encounter">
           <div class="flash"></div>
           <div class="battle-top">
-            <div class="wild-mon hidden-mon" id="wildMon">❔</div>
+            <div class="wild-mon" id="wildMon">❔</div>
           </div>
           <div class="battle-bottom">
             <div class="ball-throw" id="ballThrow">⚫</div>
           </div>
-          <div id="encounterText">A wild VISITOR-MON appeared!</div>
+          <div id="encounterText" style="margin: 10px 0;">A wild Pokémon appeared!</div>
           <div id="encounterActions">
             <button class="btn-a" id="throwBtn">THROW POKÉ BALL</button>
             <button class="btn-b" id="runBtn">RUN</button>
@@ -93,13 +149,230 @@
   </div>
   </div>
 
-  <p class="hint">Use <b>arrow keys</b> (or the on-screen D-pad) to walk. Step into a building's door to open that section. Step into <b>tall grass</b> for a chance to catch your own Pokémon and leave your mark.</p>
+  <p class="hint">Use <b>arrow keys</b> (or the on-screen D-pad) to walk. Step into a building's door to open that section. Step into <b>tall grass</b> for a chance to catch your own Pokémon.</p>
 
   <footer class="credits">
-    Built by Alex Rivera &middot; <a href="#" id="githubLink">github.com/yourusername</a> &middot; <a href="#" id="linkedinLink">linkedin.com/in/yourusername</a>
+    Built by Utkarsh Jha &middot; <a href="https://github.com/Utkarsh-webdev" target="_blank">github.com/utkarsh-webdev</a> &middot; <a href="https://www.linkedin.com/in/jhautkarsh27/" target="_blank">linkedin.com/in/jhautkarsh27</a>
   </footer>
 </div>
 
-<script src="scrpit.js"></script>
+<script>
+  // Game Map Definition (16 columns x 12 rows)
+  // W = Wall, G = Grass, D = Door, . = Empty Path
+  const MAP_WIDTH = 16;
+  const MAP_HEIGHT = 12;
+  const TILE_SIZE = 20;
+
+  const mapLayout = [
+    ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'],
+    ['W','.','.','.','W','.','.','.','W','.','.','.','W','G','G','W'],
+    ['W','.','D','.','W','.','D','.','W','.','D','.','W','G','G','W'],
+    ['W','.','.','.','W','.','.','.','W','.','.','.','W','G','G','W'],
+    ['W','W','W','.','W','W','W','.','W','W','W','.','W','G','G','W'],
+    ['W','.','.','.','.','.','.','.','.','.','.','.','.','.','.','W'],
+    ['W','.','.','.','.','.','.','.','.','.','.','.','.','.','.','W'],
+    ['W','G','G','G','G','.','.','.','.','.','.','G','G','G','G','W'],
+    ['W','G','G','G','G','.','.','.','.','.','.','G','G','G','G','W'],
+    ['W','G','G','G','G','.','.','.','.','.','.','G','G','G','G','W'],
+    ['W','G','G','G','G','.','.','.','.','.','.','G','G','G','G','W'],
+    ['W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W']
+  ];
+
+  // Association mapping for doors
+  const buildingData = {
+    "1,2": { title: "ABOUT ME", content: "<h3>Utkarsh Jha - Full Stack Instructor & Engineer</h3><p>Passionate educator and technologist focused on scalable web systems, clean architecture, and gamified web experiences.</p>" },
+    "1,6": { title: "PROJECTS", content: "<h3>My Deployments</h3><ul><li><b>Portfolio Advance:</b> This retro 8-bit game engine.</li><li><b>DevMon:</b> A full-stack developer tracker pipeline.</li></ul>" },
+    "1,10": { title: "CONTACT", content: "<h3>Get in Touch</h3><p>Email: contact@utkarsh.dev</p><p>Connect via LinkedIn or check out GitHub!</p>" }
+  };
+
+  const pokemonList = [
+    { name: "Pikachu", icon: "⚡" },
+    { name: "Bulbasaur", icon: "🍃" },
+    { name: "Charmander", icon: "🔥" },
+    { name: "Squirtle", icon: "💧" }
+  ];
+
+  // Game State
+  let playerX = 4;
+  let playerY = 6;
+  let visitedBuildings = new Set();
+  let caughtPokemon = [];
+  let currentWildMon = null;
+  let activeState = 'boot'; // boot, map, dialogue, modal, encounter
+
+  // DOM Elements
+  const world = document.getElementById('world');
+  const player = document.getElementById('player');
+  const bootScreen = document.getElementById('bootScreen');
+  const dialogue = document.getElementById('dialogue');
+  const dialogueText = document.getElementById('dialogueText');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalPanel = document.getElementById('modalPanel');
+  const encounter = document.getElementById('encounter');
+  const wildMon = document.getElementById('wildMon');
+  const encounterText = document.getElementById('encounterText');
+  const hudBadges = document.getElementById('hudBadges');
+  const dexBtn = document.getElementById('dexBtn');
+
+  // Initialize Map
+  function initMap() {
+    world.innerHTML = '';
+    for (let r = 0; r < MAP_HEIGHT; r++) {
+      for (let c = 0; c < MAP_WIDTH; c++) {
+        const tile = document.createElement('div');
+        tile.classList.add('tile');
+        const type = mapLayout[r][c];
+        if (type === 'W') tile.classList.add('wall');
+        if (type === 'G') tile.classList.add('grass');
+        if (type === 'D') tile.classList.add('door');
+        world.appendChild(tile);
+      }
+    }
+    updatePlayerPosition();
+  }
+
+  function updatePlayerPosition() {
+    player.style.left = (playerX * TILE_SIZE) + 'px';
+    player.style.top = (playerY * TILE_SIZE) + 'px';
+  }
+
+  // Handle Movement Engine
+  function movePlayer(dx, dy) {
+    if (activeState !== 'map') return;
+
+    let targetX = playerX + dx;
+    let targetY = playerY + dy;
+
+    // Boundaries
+    if (targetX < 0 || targetX >= MAP_WIDTH || targetY < 0 || targetY >= MAP_HEIGHT) return;
+
+    let targetTile = mapLayout[targetY][targetX];
+
+    // Collision Check
+    if (targetTile === 'W') return;
+
+    // Move player
+    playerX = targetX;
+    playerY = targetY;
+    updatePlayerPosition();
+
+    // Check interaction trigger
+    if (targetTile === 'D') {
+      triggerBuilding(targetY, targetX);
+      return;
+    }
+
+    if (targetTile === 'G') {
+      if (Math.random() < 0.25) { // 25% chance of wild encounter
+        triggerEncounter();
+      }
+    }
+  }
+
+  // Feature actions
+  function triggerBuilding(r, c) {
+    let key = `${r},${c}`;
+    let data = buildingData[key] || { title: "Building", content: "Inside structural block." };
+    visitedBuildings.add(key);
+    hudBadges.innerText = `VISITED ${visitedBuildings.size}/3`;
+    
+    activeState = 'modal';
+    modalPanel.innerHTML = `<h2>${data.title}</h2><hr>${data.content}<br><button onclick="closeModal()" style="font-family:'Press Start 2P'; font-size:10px; cursor:pointer; padding:5px;">CLOSE (B)</button>`;
+    modalOverlay.style.display = 'flex';
+  }
+
+  function closeModal() {
+    modalOverlay.style.display = 'none';
+    activeState = 'map';
+    // Back up the trainer one step down so they don't loop get trapped inside the entry collision
+    playerY += 1;
+    updatePlayerPosition();
+  }
+
+  function triggerEncounter() {
+    activeState = 'encounter';
+    currentWildMon = pokemonList[Math.floor(Math.random() * pokemonList.length)];
+    wildMon.innerText = currentWildMon.icon;
+    encounterText.innerText = `A wild ${currentWildMon.name.toUpperCase()} appeared!`;
+    encounter.style.display = 'flex';
+  }
+
+  // Action Buttons
+  document.getElementById('startEngineBtn').addEventListener('click', () => {
+    bootScreen.style.display = 'none';
+    activeState = 'map';
+    initMap();
+  });
+
+  document.getElementById('runBtn').addEventListener('click', () => {
+    encounter.style.display = 'none';
+    activeState = 'map';
+  });
+
+  document.getElementById('throwBtn').addEventListener('click', () => {
+    const ballThrow = document.getElementById('ballThrow');
+    ballThrow.style.transform = 'scale(2)';
+    encounterText.innerText = "Throwing Poké Ball...";
+    
+    setTimeout(() => {
+      ballThrow.style.transform = 'scale(1)';
+      if (Math.random() > 0.3) {
+        encounterText.innerText = `All right! ${currentWildMon.name.toUpperCase()} was caught!`;
+        if(!caughtPokemon.some(p => p.name === currentWildMon.name)) {
+          caughtPokemon.push(currentWildMon);
+        }
+        dexBtn.innerText = `POKÉDEX (${caughtPokemon.length})`;
+        setTimeout(() => {
+          encounter.style.display = 'none';
+          activeState = 'map';
+        }, 1500);
+      } else {
+        encounterText.innerText = "Oh no! The Pokémon broke free! Try again.";
+      }
+    }, 1000);
+  });
+
+  dexBtn.addEventListener('click', () => {
+    activeState = 'modal';
+    let content = caughtPokemon.length === 0 ? "<p>Your party Dex inventory is empty! Walk in the tall green grass to find wildlife.</p>" : "<ul>" + caughtPokemon.map(p => `<li>${p.icon} ${p.name}</li>`).join('') + "</ul>";
+    modalPanel.innerHTML = `<h2>POKÉDEX</h2><hr>${content}<br><button onclick="activeState='map'; modalOverlay.style.display='none';" style="font-family:'Press Start 2P'; font-size:10px; cursor:pointer; padding:5px;">CLOSE</button>`;
+    modalOverlay.style.display = 'flex';
+  });
+
+  // Event Listeners for controls
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp' || e.key === 'w') movePlayer(0, -1);
+    if (e.key === 'ArrowDown' || e.key === 's') movePlayer(0, 1);
+    if (e.key === 'ArrowLeft' || e.key === 'a') movePlayer(-1, 0);
+    if (e.key === 'ArrowRight' || e.key === 'd') movePlayer(1, 0);
+    if (e.key === 'Escape' && activeState === 'modal') closeModal();
+  });
+
+  // Hardware D-pad handlers
+  document.querySelectorAll('.dpad button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const dir = btn.getAttribute('data-dir');
+      if (dir === 'up') movePlayer(0, -1);
+      if (dir === 'down') movePlayer(0, 1);
+      if (dir === 'left') movePlayer(-1, 0);
+      if (dir === 'right') movePlayer(1, 0);
+    });
+  });
+
+  // A / B Hardware Button hooks
+  document.getElementById('bBtn').addEventListener('click', () => {
+    if (activeState === 'modal') closeModal();
+    if (activeState === 'encounter') { encounter.style.display = 'none'; activeState = 'map'; }
+  });
+  
+  document.getElementById('aBtn').addEventListener('click', () => {
+    if (activeState === 'boot') {
+      document.getElementById('startEngineBtn').click();
+    } else if (activeState === 'encounter') {
+      document.getElementById('throwBtn').click();
+    }
+  });
+
+</script>
 </body>
 </html>
