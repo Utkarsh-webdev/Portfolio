@@ -1,1125 +1,224 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Utkarsh Jha | MERN Stack Developer (Saiyan Mode)</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* Base styles & DBZ Theme overrides */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0b0d10;
-            color: #f3f4f6;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(249, 115, 22, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(29, 78, 216, 0.08) 0%, transparent 40%),
-                radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
-            background-size: 100% 100%, 100% 100%, 24px 24px;
-        }
-
-        .dbz-font {
-            font-family: 'Bangers', cursive;
-            letter-spacing: 0.05em;
-        }
-
-        .scouter-font {
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        /* Aura Animations */
-        @keyframes aura-pulse {
-            0%, 100% {
-                box-shadow: 0 0 20px 2px rgba(249, 115, 22, 0.6), 0 0 40px 10px rgba(234, 179, 8, 0.4);
-                transform: scale(1);
-            }
-            50% {
-                box-shadow: 0 0 35px 10px rgba(249, 115, 22, 0.9), 0 0 70px 25px rgba(234, 179, 8, 0.7);
-                transform: scale(1.02);
-            }
-        }
-
-        @keyframes ultra-instinct-aura {
-            0%, 100% {
-                box-shadow: 0 0 25px 2px rgba(255, 255, 255, 0.7), 0 0 50px 10px rgba(56, 189, 248, 0.5);
-                filter: brightness(1.1);
-            }
-            50% {
-                box-shadow: 0 0 45px 12px rgba(255, 255, 255, 0.9), 0 0 90px 25px rgba(56, 189, 248, 0.8);
-                filter: brightness(1.3);
-            }
-        }
-
-        .aura-active {
-            animation: aura-pulse 2s infinite ease-in-out;
-        }
-
-        .ui-aura-active {
-            animation: ultra-instinct-aura 1.5s infinite ease-in-out;
-        }
-
-        /* Screen Shake Animation for Ki Charging */
-        @keyframes shake {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            10% { transform: translate(-2px, -2px) rotate(-0.5deg); }
-            30% { transform: translate(3px, 2px) rotate(0.5deg); }
-            50% { transform: translate(-1px, 3px) rotate(-1deg); }
-            70% { transform: translate(2px, 1px) rotate(1deg); }
-            90% { transform: translate(-3px, -1px) rotate(-0.5deg); }
-        }
-
-        .charging-shake {
-            animation: shake 0.15s infinite;
-        }
-
-        /* Dragon Radar Scan Effect */
-        @keyframes radar-beam {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .radar-scan {
-            animation: radar-beam 4s infinite linear;
-            transform-origin: center;
-        }
-
-        /* Floating Animation */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .floating {
-            animation: float 4s infinite ease-in-out;
-        }
-
-        /* Lightning effect for Shenron Summon */
-        @keyframes lightning {
-            0%, 95%, 98%, 100% { background-color: transparent; }
-            96%, 99% { background-color: rgba(255, 255, 255, 0.95); }
-        }
-
-        .lightning-flash {
-            animation: lightning 5s infinite;
-            pointer-events: none;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0b0d10;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #f97316;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #ea580c;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Utkarsh Jha — Full-Stack Developer</title>
+<meta name="description" content="Utkarsh Jha · MERN stack developer · Kanpur, India" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Courier+Prime:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
-<body class="transition-colors duration-1000 relative">
+<body>
 
-    <!-- Lightning Overlay for Shenron Summoning Phase -->
-    <div id="lightningOverlay" class="fixed inset-0 z-50 mix-blend-overlay hidden"></div>
+<svg class="thread-svg" id="threadSvg" viewBox="0 0 100 3400" preserveAspectRatio="none">
+  <path id="threadPath" d="M 8,120 L 8,3300" />
+</svg>
 
-    <!-- AUDIO ENGINE (Web Audio Synthesizer) -->
-    <script>
-        // Web Audio Context setup for DBZ sound effects synthesized dynamically
-        let audioCtx;
+<header class="hud">
+  <div class="brand">UTKARSH JHA <span>/ dispatch log</span></div>
+  <nav class="links">
+    <a href="#about">About</a>
+    <a href="#timeline">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#toolbelt">Stack</a>
+    <a href="#dispatch">Contact</a>
+  </nav>
+  <div class="log mono">ENTRY <span id="logNum">00</span>/06</div>
+</header>
 
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-        }
+<main>
 
-        // Synthesize a sci-fi radar beep
-        function playRadarBeep() {
-            initAudio();
-            if (!audioCtx) return;
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.15);
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.15);
-        }
-
-        // Synthesize a charging Ki noise
-        let chargeOsc, chargeGain, chargeFilter;
-        function startChargingSound() {
-            initAudio();
-            if (!audioCtx) return;
-            
-            chargeOsc = audioCtx.createOscillator();
-            chargeGain = audioCtx.createGain();
-            chargeFilter = audioCtx.createBiquadFilter();
-            
-            chargeOsc.type = 'sawtooth';
-            chargeOsc.frequency.setValueAtTime(80, audioCtx.currentTime);
-            // Dynamic pitch slide upwards as you power up
-            chargeOsc.frequency.linearRampToValueAtTime(450, audioCtx.currentTime + 15);
-            
-            chargeFilter.type = 'lowpass';
-            chargeFilter.frequency.setValueAtTime(200, audioCtx.currentTime);
-            chargeFilter.frequency.linearRampToValueAtTime(2000, audioCtx.currentTime + 15);
-            
-            chargeGain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-            chargeGain.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 0.5);
-            
-            chargeOsc.connect(chargeFilter);
-            chargeFilter.connect(chargeGain);
-            chargeGain.connect(audioCtx.destination);
-            
-            chargeOsc.start();
-        }
-
-        function stopChargingSound() {
-            if (chargeGain && audioCtx) {
-                try {
-                    chargeGain.gain.setValueAtTime(chargeGain.gain.value, audioCtx.currentTime);
-                    chargeGain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-                    setTimeout(() => {
-                        chargeOsc.stop();
-                    }, 300);
-                } catch(e){}
-            }
-        }
-
-        // Collect Dragon Ball Ding
-        function playCollectDing() {
-            initAudio();
-            if (!audioCtx) return;
-            const osc1 = audioCtx.createOscillator();
-            const osc2 = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            
-            osc1.type = 'sine';
-            osc1.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
-            osc1.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1); // A5
-            
-            osc2.type = 'sine';
-            osc2.frequency.setValueAtTime(1174.66, audioCtx.currentTime); // D6
-            
-            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
-            
-            osc1.connect(gain);
-            osc2.connect(gain);
-            gain.connect(audioCtx.destination);
-            
-            osc1.start();
-            osc2.start();
-            osc1.stop(audioCtx.currentTime + 0.6);
-            osc2.stop(audioCtx.currentTime + 0.6);
-        }
-
-        // Shenron summon explosion sound
-        function playShenronThunder() {
-            initAudio();
-            if (!audioCtx) return;
-            const bufferSize = audioCtx.sampleRate * 2;
-            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for (let i = 0; i < bufferSize; i++) {
-                data[i] = Math.random() * 2 - 1;
-            }
-            
-            const noise = audioCtx.createBufferSource();
-            noise.buffer = buffer;
-            
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(400, audioCtx.currentTime);
-            filter.frequency.exponentialRampToValueAtTime(10, audioCtx.currentTime + 1.8);
-            
-            const gain = audioCtx.createGain();
-            gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.8);
-            
-            noise.connect(filter);
-            filter.connect(gain);
-            gain.connect(audioCtx.destination);
-            
-            noise.start();
-        }
-    </script>
-
-    <!-- FLOATING DRAGON RADAR HUD -->
-    <div class="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 pointer-events-none md:pointer-events-auto">
-        <!-- Dragon Radar Widget UI -->
-        <div class="bg-gray-900/90 border-2 border-green-500 rounded-full w-40 h-40 shadow-lg shadow-green-500/20 relative flex items-center justify-center p-2 backdrop-blur-md transition-all duration-500 hover:scale-105" id="radarContainer">
-            <!-- Green radar glass grid -->
-            <div class="absolute inset-2 border border-green-800/40 rounded-full overflow-hidden bg-[radial-gradient(circle_at_center,_#052e16_0%,_#022c22_80%)]">
-                <!-- Circular rings -->
-                <div class="absolute inset-4 border border-green-500/25 rounded-full"></div>
-                <div class="absolute inset-10 border border-green-500/25 rounded-full"></div>
-                <div class="absolute inset-16 border border-green-500/25 rounded-full"></div>
-                <!-- Cross lines -->
-                <div class="absolute inset-y-0 left-1/2 w-[1px] bg-green-500/20"></div>
-                <div class="absolute inset-x-0 top-1/2 h-[1px] bg-green-500/20"></div>
-                <!-- Scanning ray -->
-                <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-green-400/30 radar-scan"></div>
-                
-                <!-- Displayed Dragon Balls (dots that blink if collected) -->
-                <div id="radar-dots" class="absolute inset-0">
-                    <!-- Dynamic dots spawned by JS matching coordinates -->
-                </div>
-            </div>
-            <!-- Radar Antenna Top Tip -->
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 bg-gray-700 border-2 border-green-500 rounded-t-full"></div>
-            <!-- Dynamic count tag -->
-            <div class="absolute -bottom-2 bg-green-500 text-black text-xs font-bold px-2 py-0.5 rounded-full border border-green-300 scouter-font shadow shadow-green-400/50">
-                BALLS: <span id="radar-collected-count">0</span>/7
-            </div>
+  <!-- HERO -->
+  <section id="hero" data-idx="1">
+    <div class="pin-node" style="top:6rem;"></div>
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>OPEN FOR ASSIGNMENT · KANPUR, IN</div>
+        <h1 class="hero-title">Full-stack work,<br><em>filed and shipped.</em></h1>
+        <p class="hero-sub">I build production web apps end to end — <strong>MongoDB, Express, React, Node</strong>, with Firebase where things need to update live. Every project below is a closed ticket, not a demo.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#projects">Open the case files</a>
+          <a class="btn btn-ghost" href="#dispatch">Send a dispatch</a>
         </div>
-        
-        <!-- Toggle System Theme Form Button (Base to Ultra Instinct mode) -->
-        <button onclick="toggleUltraInstinct()" class="bg-gradient-to-r from-orange-500 to-yellow-500 text-black font-extrabold px-4 py-2 rounded-full shadow-lg hover:from-sky-400 hover:to-indigo-500 hover:text-white transition-all duration-300 pointer-events-auto flex items-center gap-2 text-xs scouter-font border-2 border-white/20">
-            <i class="fa-solid fa-fire-flame-curved"></i>
-            <span id="form-btn-text">LIMIT BREAKER</span>
-        </button>
+      </div>
+      <div class="ticket id-card">
+        <div class="tape"></div>
+        <div class="ticket-head">
+          <span class="ticket-num mono">FILE NO. 001</span>
+          <span class="stamp show">Active</span>
+        </div>
+        <div class="id-photo">[ photo goes here ]</div>
+        <div class="id-rows">
+          <div><span>ROLE</span><b>MERN Developer</b></div>
+          <div><span>BASE</span><b>Kanpur, IN</b></div>
+          <div><span>PROD SITES</span><b>1 live</b></div>
+          <div><span>SHIPPED</span><b>4 projects</b></div>
+          <div><span>INTERNSHIPS</span><b>3 closed</b></div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- DRAGON BALL COMPONENT TEMPLATE / UTILS (Will hide themselves inside sections) -->
-    <script>
-        // Track collected state
-        let collectedBalls = new Set();
-        const totalBalls = 7;
-
-        // Position on Radar coordinates: [x, y] in percentage
-        const radarPositions = [
-            [30, 25], [75, 20], [15, 60], [55, 80], 
-            [80, 70], [45, 45], [20, 35]
-        ];
-
-        function initRadar() {
-            const dotsContainer = document.getElementById('radar-dots');
-            dotsContainer.innerHTML = '';
-            for (let i = 0; i < totalBalls; i++) {
-                const [x, y] = radarPositions[i];
-                const dot = document.createElement('div');
-                dot.id = `radar-dot-${i+1}`;
-                dot.style.left = `${x}%`;
-                dot.style.top = `${y}%`;
-                // Pulse state depending on collection
-                dot.className = `absolute w-2 h-2 rounded-full transition-all duration-500 bg-red-600 shadow-md shadow-red-500/80 opacity-20 scale-75 animate-ping`;
-                dotsContainer.appendChild(dot);
-                
-                const dotSolid = document.createElement('div');
-                dotSolid.id = `radar-solid-${i+1}`;
-                dotSolid.style.left = `${x}%`;
-                dotSolid.style.top = `${y}%`;
-                dotSolid.className = `absolute w-2 h-2 -ml-0.5 -mt-0.5 rounded-full transition-all duration-500 bg-red-600 opacity-25`;
-                dotsContainer.appendChild(dotSolid);
-            }
-        }
-
-        function collectBall(num) {
-            if (collectedBalls.has(num)) return;
-            collectedBalls.add(num);
-            playCollectDing();
-            
-            // Update radar visual
-            const dot = document.getElementById(`radar-dot-${num}`);
-            const solid = document.getElementById(`radar-solid-${num}`);
-            if (dot && solid) {
-                dot.className = `absolute w-3 h-3 rounded-full transition-all duration-500 bg-amber-400 shadow-md shadow-amber-400/80 scale-125 animate-pulse`;
-                solid.className = `absolute w-2.5 h-2.5 -ml-[3px] -mt-[3px] rounded-full transition-all duration-500 bg-amber-500 shadow-md shadow-amber-400`;
-            }
-
-            // Hide the world instance
-            const element = document.getElementById(`world-ball-${num}`);
-            if (element) {
-                element.classList.add('scale-0', 'opacity-0');
-                setTimeout(() => element.classList.add('hidden'), 500);
-            }
-
-            // Update Counter
-            document.getElementById('radar-collected-count').textContent = collectedBalls.size;
-            
-            // Show alert box
-            showNotice(`You discovered Dragon Ball #${num}! (${collectedBalls.size}/7)`);
-
-            // If all 7 collected, unlock Shenron summon modal
-            if (collectedBalls.size === totalBalls) {
-                setTimeout(() => {
-                    triggerShenronEvent();
-                }, 1000);
-            }
-        }
-
-        // Custom alert notice
-        function showNotice(msg) {
-            const notice = document.createElement('div');
-            notice.className = 'fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-amber-500 text-black font-extrabold px-6 py-3 rounded-lg shadow-2xl border-4 border-black dbz-font text-lg tracking-wide transform transition-all duration-500 translate-y-[-100px] opacity-0 flex items-center gap-3';
-            notice.innerHTML = `<i class="fa-solid fa-star animate-spin"></i> <span>${msg}</span>`;
-            document.body.appendChild(notice);
-            setTimeout(() => {
-                notice.classList.remove('translate-y-[-100px]', 'opacity-0');
-            }, 50);
-            setTimeout(() => {
-                notice.classList.add('translate-y-[-100px]', 'opacity-0');
-                setTimeout(() => notice.remove(), 500);
-            }, 3500);
-        }
-    </script>
-
-    <!-- HEADER / NAVIGATION HUD -->
-    <header class="sticky top-0 z-30 bg-gray-950/80 backdrop-blur-md border-b-2 border-orange-500/30 transition-all duration-500">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-            <!-- Branding Logo -->
-            <a href="#" class="flex items-center gap-2 select-none group">
-                <span class="text-3xl dbz-font text-orange-500 tracking-wider hover:text-yellow-400 transition-colors duration-300">UTKARSH</span>
-                <span class="text-xs bg-orange-600 text-black font-black px-1.5 py-0.5 rounded-sm dbz-font uppercase tracking-tighter">MERN SAGA</span>
-            </a>
-
-            <!-- Desktop Nav System -->
-            <nav class="hidden md:flex items-center gap-6 text-sm font-semibold tracking-wider uppercase scouter-font">
-                <a href="#about" class="text-gray-300 hover:text-orange-500 transition-colors">Saiyan Bio</a>
-                <a href="#timeline" class="text-gray-300 hover:text-orange-500 transition-colors">Sagas</a>
-                <a href="#projects" class="text-gray-300 hover:text-orange-500 transition-colors">Capsule Projects</a>
-                <a href="#techniques" class="text-gray-300 hover:text-orange-500 transition-colors">Ki Techniques</a>
-                <a href="#telepathy" class="text-gray-300 hover:text-orange-500 transition-colors">Telepathy</a>
-            </nav>
-
-            <!-- Interactive HUD Diagnostics -->
-            <div class="flex items-center gap-3">
-                <div class="text-right hidden sm:block">
-                    <span class="text-[10px] text-orange-400 uppercase font-bold block leading-none">SYSTEM STATUS</span>
-                    <span class="text-sm font-bold text-green-500 scouter-font animate-pulse">KI ENGINE ACTIVE</span>
-                </div>
-                <div class="w-2 h-2 rounded-full bg-green-500 animate-ping"></div>
-            </div>
+  <!-- ABOUT -->
+  <section id="about" data-idx="2">
+    <div class="pin-node"></div>
+    <div class="sec-head"><span class="sec-num mono">002</span><div><div class="sec-tag">Case summary</div><h2>The short version</h2></div></div>
+    <div class="ticket about-ticket">
+      <div class="tape" style="right:auto; left:34px;"></div>
+      <div class="ticket-head">
+        <span class="ticket-num mono">SUBJECT: JHA, U.</span>
+        <span class="stamp show">On file</span>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>Focus has stayed narrow on purpose: <strong>MongoDB, Express, React, Node</strong> — sharpened by maintaining things people actually rely on, not tutorials abandoned halfway.</p>
+          <p>Currently the developer of record for the <span class="redline">Dr. Virendra Swarup Institute of Computer Studies</span> site — a live, ongoing assignment. Also built a resume-curation tool now used by <span class="redline">more than half</span> of my master's cohort during their own job search.</p>
         </div>
-    </header>
-
-    <!-- HERO SECTION (THE HYPERBOLIC TIME CHAMBER) -->
-    <section id="hero" class="relative min-h-[90vh] flex flex-col justify-center items-center py-12 px-4 text-center overflow-hidden">
-        <!-- Hidden Dragon Ball #1 in the background layout sparks -->
-        <div id="world-ball-1" onclick="collectBall(1)" class="absolute top-[25%] left-[10%] cursor-pointer z-20 group transition-all duration-500 hover:scale-125">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 via-amber-500 to-orange-600 border border-amber-200 shadow-lg flex items-center justify-center font-bold text-white text-sm relative select-none">
-                <span class="text-orange-950 font-black">★</span>
-                <!-- Internal Glow Effect -->
-                <div class="absolute inset-0 bg-white/20 rounded-full animate-ping pointer-events-none"></div>
-            </div>
+        <div class="stat-list">
+          <div class="stat-row"><span>Focus</span><b>Full-Stack MERN</b></div>
+          <div class="stat-row"><span>Cohort adoption</span><b>&gt;50%</b></div>
+          <div class="stat-row"><span>Live production</span><b>1 site (VSICS)</b></div>
+          <div class="stat-row"><span>Internships</span><b>3 completed</b></div>
         </div>
-
-        <!-- Training Background Ring visual -->
-        <div class="absolute w-[600px] h-[600px] rounded-full border border-orange-500/10 scale-75 md:scale-100 flex items-center justify-center animate-spin" style="animation-duration: 40s;">
-            <div class="absolute w-[450px] h-[450px] rounded-full border border-dashed border-blue-500/10"></div>
-        </div>
-
-        <div class="max-w-4xl mx-auto relative z-10 flex flex-col items-center">
-            <!-- Scouter Face HUD Overlay -->
-            <div class="relative mb-6">
-                <!-- Aura-wrapped avatar picture -->
-                <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-orange-500/80 bg-gray-950 flex items-center justify-center relative aura-active transition-all duration-1000" id="heroAvatar">
-                    <img id="avatarImage" src="https://placehold.co/400x400/1f2937/f97316?text=Utkarsh+Jha" alt="Utkarsh Jha" class="w-full h-full object-cover">
-                </div>
-                <!-- Mini Floating Saiyan Tails/Spark decorations -->
-                <div class="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs font-bold px-2 py-0.5 rounded-full uppercase scale-90 border border-white">S-CLASS</div>
-            </div>
-
-            <!-- Title Header -->
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight uppercase leading-none">
-                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-yellow-400 to-orange-500 dbz-font mb-2">UTKARSH JHA</span>
-                <span class="text-xl md:text-3xl scouter-font block font-light tracking-widest text-blue-400">SAIYAN LEVEL MERN DEVELOPER</span>
-            </h1>
-
-            <p class="mt-6 max-w-xl text-gray-400 text-sm md:text-base leading-relaxed">
-                Harnessing the immense power of the MERN stack (MongoDB, Express.js, React, Node.js) with Firebase. Transforming lines of complex code into powerful production apps.
-            </p>
-
-            <!-- POWER UP BUTTON / KI CHARGER INTERACTION -->
-            <div class="mt-8 flex flex-col items-center gap-4 w-full max-w-md">
-                <button 
-                    onmousedown="startPoweringUp()" 
-                    onmouseup="stopPoweringUp()"
-                    onmouseleave="stopPoweringUp()"
-                    ontouchstart="startPoweringUp(event)" 
-                    ontouchend="stopPoweringUp(event)"
-                    class="relative overflow-hidden group bg-gradient-to-r from-orange-600 to-yellow-500 text-white font-black text-xl py-4 px-8 rounded-xl shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center gap-3 w-64 border-b-4 border-amber-800"
-                >
-                    <i class="fa-solid fa-bolt animate-bounce"></i>
-                    <span class="dbz-font tracking-widest text-black">CHARGE YOUR KI!</span>
-                    <span class="absolute inset-0 bg-white/20 transform -skew-x-12 translate-x-full group-hover:translate-x-[-150%] transition-transform duration-1000"></span>
-                </button>
-                <p class="text-[10px] text-gray-500 scouter-font uppercase tracking-widest">Hold/Touch down to unlock Maximum Power Level</p>
-
-                <!-- Scouter Power Level Gauge HUD -->
-                <div class="w-full bg-gray-900 border-2 border-orange-500/40 rounded-lg p-4 mt-2 shadow-inner scouter-font text-left relative">
-                    <div class="absolute top-2 right-4 text-[10px] text-red-500 animate-pulse">● OVERLOAD PROT ACTIVE</div>
-                    <div class="text-xs text-orange-400 font-bold uppercase tracking-wider mb-1">Target Scouter Rating</div>
-                    <div class="flex items-baseline gap-2">
-                        <span class="text-4xl font-extrabold text-green-400 tracking-wider" id="kiPowerLevel">9,001</span>
-                        <span class="text-xs text-green-500 font-bold">RADS</span>
-                    </div>
-                    <!-- Visual Progress Bar -->
-                    <div class="w-full bg-gray-950 h-3 rounded-full mt-2 overflow-hidden border border-gray-800">
-                        <div id="powerProgressBar" class="h-full bg-gradient-to-r from-green-500 via-yellow-400 to-red-500 transition-all duration-300" style="width: 35%;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BIO / ABOUT SECTION -->
-    <section id="about" class="py-20 px-4 bg-gray-950/40 relative border-t-2 border-gray-900">
-        <!-- Hidden Dragon Ball #2 inside visual border corner -->
-        <div id="world-ball-2" onclick="collectBall(2)" class="absolute bottom-6 right-[8%] cursor-pointer z-20 group transition-all duration-500 hover:scale-125">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 via-amber-500 to-orange-600 border border-amber-200 shadow-lg flex items-center justify-center font-bold text-white text-sm relative select-none">
-                <span class="text-orange-950 font-black">★★</span>
-                <div class="absolute inset-0 bg-white/20 rounded-full animate-ping pointer-events-none"></div>
-            </div>
-        </div>
-
-        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <!-- Left Character stat card (DBZ Character Select style) -->
-            <div class="lg:col-span-5 bg-gradient-to-b from-gray-900 to-black border-2 border-orange-500/40 rounded-2xl p-6 relative shadow-2xl">
-                <div class="absolute -top-3 left-6 bg-orange-600 text-black font-extrabold px-3 py-1 text-xs uppercase scouter-font rounded-md">SAIYAN PROTOCOL DATA</div>
-                
-                <h3 class="text-2xl dbz-font text-white mb-4 mt-2">CLASS STRENGTHS</h3>
-                
-                <ul class="space-y-4 scouter-font text-sm">
-                    <li class="flex justify-between border-b border-gray-800 pb-2">
-                        <span class="text-gray-400">CLASS TYPE:</span>
-                        <span class="font-bold text-orange-400">Full-Stack MERN</span>
-                    </li>
-                    <li class="flex justify-between border-b border-gray-800 pb-2">
-                        <span class="text-gray-400">COHORTS MOBILIZED:</span>
-                        <span class="font-bold text-yellow-400">> 50% Peers Active</span>
-                    </li>
-                    <li class="flex justify-between border-b border-gray-800 pb-2">
-                        <span class="text-gray-400">LIVE WEBSITES BUILT:</span>
-                        <span class="font-bold text-green-400">1 production (VSICS)</span>
-                    </li>
-                    <li class="flex justify-between border-b border-gray-800 pb-2">
-                        <span class="text-gray-400">TRAINING LOCATION:</span>
-                        <span class="font-bold text-blue-400">Kanpur, India</span>
-                    </li>
-                    <li class="flex justify-between pb-1">
-                        <span class="text-gray-400">INTERNSHIPS MASTERED:</span>
-                        <span class="font-bold text-violet-400">3 Sprints Complete</span>
-                    </li>
-                </ul>
-
-                <!-- Skill Radar Diagnostic Diagram SVG (Mockup) -->
-                <div class="mt-6 border border-gray-800 bg-gray-950/60 rounded-xl p-4 flex justify-center">
-                    <svg class="w-48 h-48" viewBox="0 0 100 100">
-                        <!-- Polygon overlaying skill balances -->
-                        <polygon points="50,15 85,35 75,75 25,75 15,35" fill="none" stroke="#f97316" stroke-width="1.5" />
-                        <polygon points="50,25 78,38 70,68 32,70 20,40" fill="rgba(249, 115, 22, 0.25)" stroke="#fb923c" stroke-width="1.5" />
-                        <!-- Axi lines -->
-                        <line x1="50" y1="50" x2="50" y2="15" stroke="rgba(255,255,255,0.15)" stroke-width="0.5" />
-                        <line x1="50" y1="50" x2="85" y2="35" stroke="rgba(255,255,255,0.15)" stroke-width="0.5" />
-                        <line x1="50" y1="50" x2="75" y2="75" stroke="rgba(255,255,255,0.15)" stroke-width="0.5" />
-                        <line x1="50" y1="50" x2="25" y2="75" stroke="rgba(255,255,255,0.15)" stroke-width="0.5" />
-                        <line x1="50" y1="50" x2="15" y2="35" stroke="rgba(255,255,255,0.15)" stroke-width="0.5" />
-                        <!-- Labels -->
-                        <text x="50" y="10" text-anchor="middle" fill="#aaa" font-size="6" font-family="monospace">MERN</text>
-                        <text x="90" y="38" text-anchor="start" fill="#aaa" font-size="6" font-family="monospace">FIREBASE</text>
-                        <text x="78" y="82" text-anchor="start" fill="#aaa" font-size="6" font-family="monospace">UX/UI</text>
-                        <text x="22" y="82" text-anchor="end" fill="#aaa" font-size="6" font-family="monospace">DSA</text>
-                        <text x="10" y="38" text-anchor="end" fill="#aaa" font-size="6" font-family="monospace">APIs</text>
-                    </svg>
-                </div>
-            </div>
-
-            <!-- Right biography details -->
-            <div class="lg:col-span-7">
-                <h2 class="text-4xl dbz-font text-orange-500 mb-6">SAIYAN CHRONICLES: UTKARSH JHA</h2>
-                <div class="space-y-6 text-gray-300 text-sm md:text-base leading-relaxed">
-                    <p>
-                        Every great warrior undergoes intense training. My digital Dojo has been the MERN stack universe. With an unyielding focus on <strong class="text-white">MongoDB, Express.js, React.js, and Node.js</strong>, I have optimized real-time database query nodes and designed fast frontend panels.
-                    </p>
-                    <p>
-                        Currently, I volunteer to maintain and advance the <strong class="text-white">Dr. Virendra Swarup Institute of Computer Studies official system</strong>. Alongside this, my personal creation—a modular Resume Curation pipeline—is actively utilized by over half of my master’s class.
-                    </p>
-                    <p class="border-l-4 border-yellow-500 pl-4 py-2 bg-yellow-500/5 rounded-r-lg">
-                        "Your power level is measured by the systems you build and the bottlenecks you overcome."
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- EXPERIENCES / TIMELINE SECTION (THE TRAINING SAGAS) -->
-    <section id="timeline" class="py-20 px-4 bg-gray-900/20 relative">
-        <!-- Hidden Dragon Ball #3 inside timeline header right alignment -->
-        <div id="world-ball-3" onclick="collectBall(3)" class="absolute top-[20%] right-[15%] cursor-pointer z-20 group transition-all duration-500 hover:scale-125">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 via-amber-500 to-orange-600 border border-amber-200 shadow-lg flex items-center justify-center font-bold text-white text-sm relative select-none">
-                <span class="text-orange-950 font-black">★★★</span>
-                <div class="absolute inset-0 bg-white/20 rounded-full animate-ping pointer-events-none"></div>
-            </div>
-        </div>
-
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-4xl dbz-font text-center text-orange-500 mb-16">CHRONOLOGICAL SAGAS</h2>
-
-            <div class="relative border-l-2 border-orange-500/40 ml-4 md:ml-32 space-y-12">
-                
-                <!-- Saga 1 -->
-                <div class="relative pl-8 md:pl-12">
-                    <!-- Absolute time anchor left on desktop -->
-                    <div class="hidden md:block absolute right-[calc(100%+3rem)] top-1 w-24 text-right">
-                        <span class="scouter-font text-xs font-bold text-orange-500 block">ONGOING</span>
-                        <span class="text-[10px] text-gray-500 uppercase block">ACTIVE DUTY</span>
-                    </div>
-                    <!-- Node Bullet marker -->
-                    <div class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full bg-orange-500 border-4 border-black animate-pulse"></div>
-                    
-                    <div class="bg-gray-950/80 border border-gray-800 p-6 rounded-xl hover:border-orange-500/40 transition-all duration-300">
-                        <span class="text-[10px] bg-red-600 text-white font-extrabold px-2 py-0.5 rounded uppercase tracking-wider scouter-font">Live Arena</span>
-                        <h3 class="text-xl font-bold text-white mt-2">Web Developer (Volunteer)</h3>
-                        <h4 class="text-sm font-semibold text-blue-400">Dr. Virendra Swarup Institute of Computer Studies</h4>
-                        <p class="text-gray-400 text-xs mt-1 md:hidden">Ongoing Saga</p>
-                        
-                        <p class="text-gray-300 text-sm mt-4">
-                            Directly maintaining and optimizing the live collegiate framework. Tasked with redesigning client-side navigation pathways, upgrading UI segments, and troubleshooting active system database connections for real campus audiences.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mt-4">
-                            <span class="text-[11px] bg-gray-900 border border-gray-800 px-2.5 py-1 rounded text-orange-400 scouter-font">Firebase</span>
-                            <span class="text-[11px] bg-gray-900 border border-gray-800 px-2.5 py-1 rounded text-orange-400 scouter-font">Express.js</span>
-                            <span class="text-[11px] bg-gray-900 border border-gray-800 px-2.5 py-1 rounded text-orange-400 scouter-font">Node.js</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Saga 2 -->
-                <div class="relative pl-8 md:pl-12">
-                    <div class="hidden md:block absolute right-[calc(100%+3rem)] top-1 w-24 text-right">
-                        <span class="scouter-font text-xs font-bold text-gray-400 block">3 MONTHS</span>
-                        <span class="text-[10px] text-gray-500 uppercase block">TRAINING</span>
-                    </div>
-                    <div class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full bg-blue-500 border-4 border-black"></div>
-                    
-                    <div class="bg-gray-950/80 border border-gray-800 p-6 rounded-xl hover:border-blue-500/40 transition-all duration-300">
-                        <span class="text-[10px] bg-blue-600 text-white font-extrabold px-2 py-0.5 rounded uppercase tracking-wider scouter-font">INFOTECH SAGA</span>
-                        <h3 class="text-xl font-bold text-white mt-2">Web Development Intern</h3>
-                        <h4 class="text-sm font-semibold text-blue-400">Infotech</h4>
-                        <p class="text-gray-400 text-xs mt-1 md:hidden">3 Months Saga</p>
-                        
-                        <p class="text-gray-300 text-sm mt-4">
-                            Constructed a high-fidelity dietary modeling program and body metrics engine. Designed algorithm pathways that evaluate user metrics and dynamically generate optimized workout regimes.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mt-4">
-                            <span class="text-[11px] bg-gray-900 border border-gray-800 px-2.5 py-1 rounded text-blue-400 scouter-font">React.js</span>
-                            <span class="text-[11px] bg-gray-900 border border-gray-800 px-2.5 py-1 rounded text-blue-400 scouter-font">Tailwind CSS</span>
-                            <span class="text-[11px] bg-gray-900 border border-gray-800 px-2.5 py-1 rounded text-blue-400 scouter-font">Algorithms</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Saga 3 -->
-                <div class="relative pl-8 md:pl-12">
-                    <div class="hidden md:block absolute right-[calc(100%+3rem)] top-1 w-24 text-right">
-                        <span class="scouter-font text-xs font-bold text-gray-400 block">2 MONTHS</span>
-                        <span class="text-[10px] text-gray-500 uppercase block">TRAINING</span>
-                    </div>
-                    <div class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full bg-yellow-500 border-4 border-black"></div>
-                    
-                    <div class="bg-gray-950/80 border border-gray-800 p-6 rounded-xl hover:border-yellow-500/40 transition-all duration-300">
-                        <span class="text-[10px] bg-yellow-600 text-black font-extrabold px-2 py-0.5 rounded uppercase tracking-wider scouter-font">EAZYBYTES SAGA</span>
-                        <h3 class="text-xl font-bold text-white mt-2">Web Developer Intern</h3>
-                        <h4 class="text-sm font-semibold text-blue-400">EazyBytes</h4>
-                        <p class="text-gray-400 text-xs mt-1 md:hidden">2 Months Saga</p>
-                        
-                        <p class="text-gray-300 text-sm mt-4">
-                            Built "Eventora", a high-performance, live scheduling canvas. Utilized dynamic Firebase database pathways to synchronized immediate RSVPs and schedules without reload.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mt-4">
-                            <span class="text-[11px] bg-gray-900 border border-gray-800 px-2.5 py-1 rounded text-yellow-400 scouter-font">React.js</span>
-                            <span class="text-[11px] bg-gray-900 border border-gray-800 px-2.5 py-1 rounded text-yellow-400 scouter-font">Firebase DB</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- PORTFOLIO PROJECTS SECTION (CAPSULE CORP INVENTIONS) -->
-    <section id="projects" class="py-20 px-4 bg-gray-950/20 relative border-t border-gray-900">
-        <!-- Hidden Dragon Ball #4 behind first project card context -->
-        <div id="world-ball-4" onclick="collectBall(4)" class="absolute bottom-10 left-[5%] cursor-pointer z-20 group transition-all duration-500 hover:scale-125">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 via-amber-500 to-orange-600 border border-amber-200 shadow-lg flex items-center justify-center font-bold text-white text-sm relative select-none">
-                <span class="text-orange-950 font-black">★★★★</span>
-                <div class="absolute inset-0 bg-white/20 rounded-full animate-ping pointer-events-none"></div>
-            </div>
-        </div>
-
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl dbz-font text-center text-orange-500 mb-4">CAPSULE CORP INVENTIONS</h2>
-            <p class="text-center text-gray-400 scouter-font text-xs tracking-widest mb-16 uppercase">Advanced Software Projects Showcase</p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
-                <!-- Project 1 -->
-                <div class="bg-gradient-to-b from-gray-900 to-black border-2 border-gray-800 hover:border-orange-500/60 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-12 -right-12 w-24 h-24 bg-orange-500/10 rounded-full blur-xl group-hover:bg-orange-500/20 transition-all duration-500"></div>
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-xs bg-orange-500/15 border border-orange-500/30 text-orange-400 font-bold px-3 py-1 rounded-full scouter-font">MERN ENGINE</span>
-                            <span class="text-xs text-gray-500 scouter-font">MODEL: RESUME</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">Professional Resume Builder</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed mb-6">
-                            Constructed a secure, robust builder software featuring live styling rendering, automated formatting layout blocks, and structured PDF compile streams.
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between mt-auto">
-                        <span class="text-xs text-green-400 font-bold scouter-font"><i class="fa-solid fa-users"></i> Used by >50% Class</span>
-                        <div class="flex gap-3">
-                            <a href="#" class="text-gray-400 hover:text-white transition-colors text-lg"><i class="fa-brands fa-github"></i></a>
-                            <a href="#" class="text-orange-500 hover:text-orange-400 transition-colors text-sm font-semibold uppercase scouter-font flex items-center gap-1">Launch <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="bg-gradient-to-b from-gray-900 to-black border-2 border-gray-800 hover:border-blue-500/60 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-12 -right-12 w-24 h-24 bg-blue-500/10 rounded-full blur-xl group-hover:bg-blue-500/20 transition-all duration-500"></div>
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-xs bg-blue-500/15 border border-blue-500/30 text-blue-400 font-bold px-3 py-1 rounded-full scouter-font">MERN ENGINE</span>
-                            <span class="text-xs text-gray-500 scouter-font">MODEL: CLINIC</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">DocTime Appointment Portal</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed mb-6">
-                            A complex healthcare gateway program allowing clinical scheduling paths, dynamic physician state updates, and real-time medical slot tracking charts.
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between mt-auto">
-                        <span class="text-xs text-blue-400 font-bold scouter-font"><i class="fa-solid fa-clock"></i> Active Scheduler</span>
-                        <div class="flex gap-3">
-                            <a href="#" class="text-gray-400 hover:text-white transition-colors text-lg"><i class="fa-brands fa-github"></i></a>
-                            <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors text-sm font-semibold uppercase scouter-font flex items-center gap-1">Launch <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="bg-gradient-to-b from-gray-900 to-black border-2 border-gray-800 hover:border-yellow-500/60 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-12 -right-12 w-24 h-24 bg-yellow-500/10 rounded-full blur-xl group-hover:bg-yellow-500/20 transition-all duration-500"></div>
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-xs bg-yellow-500/15 border border-yellow-500/30 text-yellow-400 font-bold px-3 py-1 rounded-full scouter-font">REACT ENGINE</span>
-                            <span class="text-xs text-gray-500 scouter-font">MODEL: COGNITION</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors">VisionGPT Intelligent UI</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed mb-6">
-                            Constructed an AI-wrapper system engineered specifically for fast machine vision rendering, prompt streams, and responsive image classification assets.
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between mt-auto">
-                        <span class="text-xs text-yellow-400 font-bold scouter-font"><i class="fa-solid fa-brain"></i> AI Pipeline</span>
-                        <div class="flex gap-3">
-                            <a href="#" class="text-gray-400 hover:text-white transition-colors text-lg"><i class="fa-brands fa-github"></i></a>
-                            <a href="#" class="text-yellow-500 hover:text-yellow-400 transition-colors text-sm font-semibold uppercase scouter-font flex items-center gap-1">Launch <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="bg-gradient-to-b from-gray-900 to-black border-2 border-gray-800 hover:border-purple-500/60 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -top-12 -right-12 w-24 h-24 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/20 transition-all duration-500"></div>
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-xs bg-purple-500/15 border border-purple-500/30 text-purple-400 font-bold px-3 py-1 rounded-full scouter-font">VANILLA ENGINE</span>
-                            <span class="text-xs text-gray-500 scouter-font">MODEL: FINANCIAL</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">Smart Expense Tracker</h3>
-                        <p class="text-gray-300 text-sm leading-relaxed mb-6">
-                            Built an asset-tracking web application displaying user transaction ledgers, responsive database filter sorting, and custom interactive ledger diagrams.
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between mt-auto">
-                        <span class="text-xs text-purple-400 font-bold scouter-font"><i class="fa-solid fa-chart-pie"></i> Visual Metrics</span>
-                        <div class="flex gap-3">
-                            <a href="#" class="text-gray-400 hover:text-white transition-colors text-lg"><i class="fa-brands fa-github"></i></a>
-                            <a href="#" class="text-purple-500 hover:text-purple-400 transition-colors text-sm font-semibold uppercase scouter-font flex items-center gap-1">Launch <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- SKILLS SECTION (KI TECHNIQUES & ABILITIES) -->
-    <section id="techniques" class="py-20 px-4 bg-gray-950/40 relative border-t border-gray-900">
-        <!-- Hidden Dragon Ball #5 under React skill card click zone -->
-        <div id="world-ball-5" onclick="collectBall(5)" class="absolute top-[35%] right-[2%] cursor-pointer z-20 group transition-all duration-500 hover:scale-125">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 via-amber-500 to-orange-600 border border-amber-200 shadow-lg flex items-center justify-center font-bold text-white text-sm relative select-none">
-                <span class="text-orange-950 font-black">★★★★★</span>
-                <div class="absolute inset-0 bg-white/20 rounded-full animate-ping pointer-events-none"></div>
-            </div>
-        </div>
-
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl dbz-font text-center text-orange-500 mb-4">KI MANIPULATION (SKILLS)</h2>
-            <p class="text-center text-gray-400 scouter-font text-xs tracking-widest mb-16 uppercase">Harnessed Power & Protocols</p>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                
-                <!-- React -->
-                <div class="bg-gray-900/60 border-2 border-orange-500/20 hover:border-cyan-400 hover:-translate-y-2 transition-all duration-300 p-6 rounded-2xl text-center group">
-                    <div class="text-5xl text-cyan-400 mb-3 group-hover:rotate-180 transition-transform duration-1000"><i class="fa-brands fa-react"></i></div>
-                    <h3 class="text-lg font-bold text-white">React.js</h3>
-                    <p class="text-xs text-gray-500 mt-1 scouter-font">95% KI LEVEL</p>
-                </div>
-
-                <!-- JavaScript -->
-                <div class="bg-gray-900/60 border-2 border-orange-500/20 hover:border-yellow-400 hover:-translate-y-2 transition-all duration-300 p-6 rounded-2xl text-center group">
-                    <div class="text-5xl text-yellow-400 mb-3"><i class="fa-brands fa-js"></i></div>
-                    <h3 class="text-lg font-bold text-white">JavaScript (ES6+)</h3>
-                    <p class="text-xs text-gray-500 mt-1 scouter-font">90% KI LEVEL</p>
-                </div>
-
-                <!-- Node.js -->
-                <div class="bg-gray-900/60 border-2 border-orange-500/20 hover:border-green-400 hover:-translate-y-2 transition-all duration-300 p-6 rounded-2xl text-center group">
-                    <div class="text-5xl text-green-400 mb-3"><i class="fa-brands fa-node"></i></div>
-                    <h3 class="text-lg font-bold text-white">Node / Express</h3>
-                    <p class="text-xs text-gray-500 mt-1 scouter-font">85% KI LEVEL</p>
-                </div>
-
-                <!-- MongoDB -->
-                <div class="bg-gray-900/60 border-2 border-orange-500/20 hover:border-green-600 hover:-translate-y-2 transition-all duration-300 p-6 rounded-2xl text-center group">
-                    <div class="text-5xl text-green-600 mb-3"><i class="fa-solid fa-leaf"></i></div>
-                    <h3 class="text-lg font-bold text-white">MongoDB</h3>
-                    <p class="text-xs text-gray-500 mt-1 scouter-font">88% KI LEVEL</p>
-                </div>
-
-                <!-- HTML5/CSS3 -->
-                <div class="bg-gray-900/60 border-2 border-orange-500/20 hover:border-orange-500 hover:-translate-y-2 transition-all duration-300 p-6 rounded-2xl text-center group">
-                    <div class="text-5xl text-orange-500 mb-3"><i class="fa-brands fa-html5"></i></div>
-                    <h3 class="text-lg font-bold text-white">Tailwind / HTML</h3>
-                    <p class="text-xs text-gray-500 mt-1 scouter-font">95% KI LEVEL</p>
-                </div>
-
-                <!-- Firebase -->
-                <div class="bg-gray-900/60 border-2 border-orange-500/20 hover:border-amber-500 hover:-translate-y-2 transition-all duration-300 p-6 rounded-2xl text-center group">
-                    <div class="text-5xl text-amber-500 mb-3"><i class="fa-solid fa-fire"></i></div>
-                    <h3 class="text-lg font-bold text-white">Firebase</h3>
-                    <p class="text-xs text-gray-500 mt-1 scouter-font">80% KI LEVEL</p>
-                </div>
-
-                <!-- Git/Github -->
-                <div class="bg-gray-900/60 border-2 border-orange-500/20 hover:border-gray-300 hover:-translate-y-2 transition-all duration-300 p-6 rounded-2xl text-center group">
-                    <div class="text-5xl text-gray-300 mb-3"><i class="fa-brands fa-github"></i></div>
-                    <h3 class="text-lg font-bold text-white">Git & GitHub</h3>
-                    <p class="text-xs text-gray-500 mt-1 scouter-font">85% KI LEVEL</p>
-                </div>
-
-                <!-- DSA -->
-                <div class="bg-gray-900/60 border-2 border-orange-500/20 hover:border-violet-400 hover:-translate-y-2 transition-all duration-300 p-6 rounded-2xl text-center group">
-                    <div class="text-5xl text-violet-400 mb-3"><i class="fa-solid fa-network-wired"></i></div>
-                    <h3 class="text-lg font-bold text-white">OOP & DSA</h3>
-                    <p class="text-xs text-gray-500 mt-1 scouter-font">80% KI LEVEL</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- TELEPATHIC CONTACT FORM SECTION -->
-    <section id="telepathy" class="py-20 px-4 bg-gradient-to-b from-gray-950/40 to-black relative">
-        <!-- Hidden Dragon Ball #6 inside custom input form layout zone -->
-        <div id="world-ball-6" onclick="collectBall(6)" class="absolute top-[10%] left-[20%] cursor-pointer z-20 group transition-all duration-500 hover:scale-125">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 via-amber-500 to-orange-600 border border-amber-200 shadow-lg flex items-center justify-center font-bold text-white text-sm relative select-none">
-                <span class="text-orange-950 font-black">★★★★★★</span>
-                <div class="absolute inset-0 bg-white/20 rounded-full animate-ping pointer-events-none"></div>
-            </div>
-        </div>
-
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl dbz-font text-center text-orange-500 mb-4">TELEPATHIC LINK</h2>
-            <p class="text-center text-gray-400 scouter-font text-xs tracking-widest mb-12 uppercase">Transmit encrypted message vectors to Utkarsh</p>
-
-            <!-- Saiyan Space Pod HUD styled form -->
-            <div class="bg-gray-900/60 border-2 border-red-500/40 rounded-2xl p-6 md:p-10 shadow-2xl relative">
-                <div class="absolute top-2 right-4 text-[10px] text-red-500 scouter-font animate-pulse">● SECURED COMMUNICATOR V2</div>
-                
-                <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="flex flex-col gap-2">
-                            <label class="text-xs font-bold text-gray-400 scouter-font uppercase">Warrior Designation (Name)</label>
-                            <input required type="text" id="contactName" class="w-full bg-black border border-gray-800 focus:border-red-500 rounded-lg py-3 px-4 text-white placeholder-gray-600 text-sm focus:outline-none focus:ring-1 focus:ring-red-500 transition-all duration-300" placeholder="e.g. Kakarot">
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label class="text-xs font-bold text-gray-400 scouter-font uppercase">Communication Coordinate (Email)</label>
-                            <input required type="email" id="contactEmail" class="w-full bg-black border border-gray-800 focus:border-red-500 rounded-lg py-3 px-4 text-white placeholder-gray-600 text-sm focus:outline-none focus:ring-1 focus:ring-red-500 transition-all duration-300" placeholder="e.g. kakarot@saiyan.com">
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col gap-2">
-                        <label class="text-xs font-bold text-gray-400 scouter-font uppercase">Transmission Frequency (Message)</label>
-                        <textarea required id="contactMessage" rows="5" class="w-full bg-black border border-gray-800 focus:border-red-500 rounded-lg py-3 px-4 text-white placeholder-gray-600 text-sm focus:outline-none focus:ring-1 focus:ring-red-500 transition-all duration-300" placeholder="State your business coordinates, master saga proposals, or team alignment directives..."></textarea>
-                    </div>
-
-                    <!-- Hidden Dragon Ball #7 inside contact form itself near submit! -->
-                    <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pt-2">
-                        <div class="relative">
-                            <div id="world-ball-7" onclick="collectBall(7)" class="cursor-pointer group transition-all duration-500 hover:scale-125 flex items-center gap-2">
-                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-300 via-amber-500 to-orange-600 border border-amber-200 shadow-lg flex items-center justify-center font-bold text-white text-xs relative select-none">
-                                    <span class="text-orange-950 font-black">★★★★★★★</span>
-                                    <div class="absolute inset-0 bg-white/10 rounded-full animate-ping pointer-events-none"></div>
-                                </div>
-                                <span class="text-[10px] text-gray-500 scouter-font uppercase">Inspect radar coordinates...</span>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-red-600 to-orange-500 text-white font-extrabold px-8 py-3 rounded-lg hover:brightness-110 active:scale-95 transition-all duration-300 scouter-font tracking-widest text-sm flex items-center justify-center gap-2 border-b-4 border-red-950">
-                            <i class="fa-solid fa-paper-plane"></i>
-                            <span>SEND TRANSMISSION</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- SUMMON SHENRON MODAL SYSTEM (WISH ENGINE) -->
-    <div id="shenronModal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
-        <div class="max-w-2xl w-full bg-gradient-to-b from-emerald-950 to-black border-4 border-emerald-500/60 p-6 md:p-8 rounded-3xl relative shadow-[0_0_50px_rgba(16,185,129,0.3)] text-center">
-            
-            <!-- Close Button -->
-            <button onclick="closeShenronModal()" class="absolute top-4 right-4 text-emerald-400 hover:text-white transition-colors text-xl"><i class="fa-solid fa-circle-xmark"></i></button>
-
-            <!-- Thunder visual element -->
-            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-48 bg-emerald-500/20 rounded-full blur-2xl pointer-events-none"></div>
-
-            <!-- Shenron SVG Mascot Silhouette -->
-            <div class="floating w-40 h-40 mx-auto text-emerald-400 flex items-center justify-center">
-                <svg viewBox="0 0 512 512" fill="currentColor" class="w-full h-full">
-                    <!-- Clean minimal Asian dragon / Shenron symbol path -->
-                    <path d="M464 256c0-11.3-4.3-21.7-11.4-29.8 8.1-13.6 11.4-29.3 8.3-45-4.4-22.1-22.3-39.7-44.5-43.7-14.7-2.7-29.3.4-41.6 7.4-4-10-12.2-18-22.7-22-19-7.2-40.4-1.2-52.9 14-5.3-2.1-11-3.3-17.2-3.3-15.6 0-29.4 8.2-37.4 20.6-9.6-4.5-20.2-6.6-31.1-5.7-20.5 1.7-38.3 14.8-44.9 34.2-12.2-6.3-26.4-8-40.1-4.2-22.4 6.2-39 24.8-41.8 47.9-2.2 18.2 4.1 35.4 15.6 47.7-6.5 8.1-10.4 18.3-10.4 29.4 0 11.5 4.2 22 11.1 30.1-8 13.5-11.1 29.1-8 44.7 4.4 22.1 22.3 39.7 44.5 43.7 14.7 2.7 29.3-.4 41.6-7.4 4 10 12.2 18 22.7 22 19 7.2 40.4 1.2 52.9-14 5.3 2.1 11 3.3 17.2 3.3 15.6 0 29.4-8.2 37.4-20.6 9.6 4.5 20.2 6.6 31.1 5.7 20.5-1.7 38.3-14.8 44.9-34.2 12.2 6.3 26.4 8 40.1 4.2 22.4-6.2 39-24.8 41.8-47.9 2.2-18.2-4.1-35.4-15.6-47.7 6.5-8.1 10.4-18.3 10.4-29.4z" opacity="0.15"/>
-                    <path d="M384 192c0-35.3-28.7-64-64-64s-64 28.7-64 64 28.7 64 64 64 64-28.7 64-64zm-128 0c0-35.3-28.7-64-64-64s-64 28.7-64 64 28.7 64 64 64 64-28.7 64-64z" fill="none" stroke="currentColor" stroke-width="8"/>
-                    <path d="M128 256c0 70.7 57.3 128 128 128s128-57.3 128-128c0-11.3-9.2-20-20.5-20H148.5c-11.3 0-20.5 8.7-20.5 20z" fill="none" stroke="currentColor" stroke-width="12"/>
-                </svg>
-            </div>
-
-            <h2 class="text-3xl md:text-5xl dbz-font text-emerald-400 tracking-wider mt-4">SHENRON HAS AWAKENED!</h2>
-            <p class="text-emerald-300 text-sm md:text-base scouter-font mt-2 uppercase tracking-widest">"I SHALL GRANT YOU ONE WISH. SPEAK IT NOW."</p>
-
-            <!-- Visual Wish Choices -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-                
-                <!-- Wish 1 -->
-                <button onclick="handleWish('resume')" class="bg-emerald-950/40 border-2 border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-900/40 p-4 rounded-xl transition-all duration-300 flex flex-col items-center gap-2 group">
-                    <span class="text-3xl text-emerald-400 group-hover:scale-110 transition-transform"><i class="fa-solid fa-file-pdf"></i></span>
-                    <span class="text-xs font-extrabold text-white scouter-font">DOWNLOAD RESUME</span>
-                    <span class="text-[9px] text-emerald-400">Instantly grab Utkarsh's master file</span>
-                </button>
-
-                <!-- Wish 2 -->
-                <button onclick="handleWish('teleport')" class="bg-emerald-950/40 border-2 border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-900/40 p-4 rounded-xl transition-all duration-300 flex flex-col items-center gap-2 group">
-                    <span class="text-3xl text-emerald-400 group-hover:scale-110 transition-transform"><i class="fa-solid fa-bolt"></i></span>
-                    <span class="text-xs font-extrabold text-white scouter-font">TELEPORT TO CONTACT</span>
-                    <span class="text-[9px] text-emerald-400">Transmit details with priority ki</span>
-                </button>
-
-                <!-- Wish 3 -->
-                <button onclick="handleWish('ui')" class="bg-emerald-950/40 border-2 border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-900/40 p-4 rounded-xl transition-all duration-300 flex flex-col items-center gap-2 group">
-                    <span class="text-3xl text-emerald-400 group-hover:scale-110 transition-transform"><i class="fa-solid fa-fire-flame-simple animate-pulse"></i></span>
-                    <span class="text-xs font-extrabold text-white scouter-font">ULTRA INSTINCT UNLOCK</span>
-                    <span class="text-[9px] text-emerald-400">Morph client styling into UI limits</span>
-                </button>
-
-            </div>
-
-            <!-- Dynamic wish output notice -->
-            <div id="wishOutput" class="hidden mt-6 p-4 bg-black/80 border border-emerald-500/30 rounded-xl text-emerald-300 text-xs scouter-font"></div>
-        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- SITE FOOTER -->
-    <footer class="bg-black border-t-2 border-gray-900 py-12 px-4 text-center">
-        <div class="max-w-6xl mx-auto flex flex-col items-center gap-6">
-            <div class="flex gap-6 text-xl text-gray-500">
-                <a href="#" class="hover:text-orange-500 transition-colors"><i class="fa-brands fa-github"></i></a>
-                <a href="#" class="hover:text-orange-500 transition-colors"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#" class="hover:text-orange-500 transition-colors"><i class="fa-solid fa-envelope"></i></a>
-            </div>
-
-            <p class="text-gray-600 text-xs scouter-font tracking-widest uppercase">
-                Designed & developed by Utkarsh Jha © 2026. All Power Levels Authenticated.
-            </p>
+  <!-- TIMELINE -->
+  <section id="timeline" data-idx="3">
+    <div class="pin-node"></div>
+    <div class="sec-head"><span class="sec-num mono">003</span><div><div class="sec-tag">Chronology</div><h2>Work, in order</h2></div></div>
+    <div class="tl-wrap">
+      <div class="tl-item">
+        <div class="ticket">
+          <div class="tape"></div>
+          <div class="ticket-head"><span class="ticket-num mono">ONGOING</span><span class="stamp js-stamp">Active</span></div>
+          <div class="t-tag">Volunteer</div>
+          <h3>Web Developer</h3>
+          <div class="t-org">Dr. Virendra Swarup Institute of Computer Studies</div>
+          <p>Maintaining the live institutional site — reworked navigation, upgraded UI sections, fixed real database issues for an active campus audience.</p>
+          <div class="chips"><span class="chip">Firebase</span><span class="chip">Express.js</span><span class="chip">Node.js</span></div>
         </div>
-    </footer>
+      </div>
+      <div class="tl-item">
+        <div class="ticket">
+          <div class="tape" style="right:auto; left:30px;"></div>
+          <div class="ticket-head"><span class="ticket-num mono">3 MONTHS</span><span class="stamp js-stamp">Closed</span></div>
+          <div class="t-tag">Internship</div>
+          <h3>Web Development Intern</h3>
+          <div class="t-org">Infotech</div>
+          <p>Built a dietary-planning and body-metrics tool, including the logic that reads user metrics and generates a personalized workout plan.</p>
+          <div class="chips"><span class="chip">React.js</span><span class="chip">Tailwind CSS</span><span class="chip">Algorithms</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="ticket">
+          <div class="tape"></div>
+          <div class="ticket-head"><span class="ticket-num mono">2 MONTHS</span><span class="stamp js-stamp">Closed</span></div>
+          <div class="t-tag">Internship</div>
+          <h3>Web Developer Intern</h3>
+          <div class="t-org">EazyBytes</div>
+          <p>Built "Eventora," a live event-scheduling tool with Firebase-backed real-time RSVPs and schedule updates — no page reload needed.</p>
+          <div class="chips"><span class="chip">React.js</span><span class="chip">Firebase</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- RUNTIME LOGIC / SCRIPTS -->
-    <script>
-        // Start radar indicators on page load
-        window.onload = function() {
-            initRadar();
-            // Start subtle diagnostic log to simulate a scouter UI loading
-            console.log("%c[SYSTEM INITIALIZED]: Saiyan Core Engine Online", "color: #f97316; font-weight: bold; font-size: 14px;");
-        }
+  <!-- PROJECTS -->
+  <section id="projects" data-idx="4">
+    <div class="pin-node"></div>
+    <div class="sec-head"><span class="sec-num mono">004</span><div><div class="sec-tag">Case files</div><h2>Things I've shipped</h2></div></div>
+    <div class="proj-grid">
+      <div class="ticket">
+        <div class="tape"></div>
+        <div class="ticket-head"><span class="ticket-num mono">FILE / RESUME</span><span class="stamp js-stamp">Live</span></div>
+        <h3>Professional Resume Builder</h3>
+        <p>Live style rendering, automated layout formatting, and a clean PDF export pipeline. Adopted by &gt;50% of my cohort.</p>
+        <div class="capsule-links"><a href="#">Source</a><a href="#">Live demo</a></div>
+      </div>
+      <div class="ticket">
+        <div class="tape" style="right:auto; left:30px;"></div>
+        <div class="ticket-head"><span class="ticket-num mono">FILE / CLINIC</span><span class="stamp js-stamp">Live</span></div>
+        <h3>DocTime Appointment Portal</h3>
+        <p>Healthcare booking platform with clinical scheduling, live physician availability, and real-time slot tracking.</p>
+        <div class="capsule-links"><a href="#">Source</a><a href="#">Live demo</a></div>
+      </div>
+      <div class="ticket">
+        <div class="tape"></div>
+        <div class="ticket-head"><span class="ticket-num mono">FILE / VISION</span><span class="stamp js-stamp">Shipped</span></div>
+        <h3>VisionGPT Intelligent UI</h3>
+        <p>AI-wrapper interface built for fast image classification and streaming prompt responses.</p>
+        <div class="capsule-links"><a href="#">Source</a><a href="#">Live demo</a></div>
+      </div>
+      <div class="ticket">
+        <div class="tape" style="right:auto; left:30px;"></div>
+        <div class="ticket-head"><span class="ticket-num mono">FILE / LEDGER</span><span class="stamp js-stamp">Shipped</span></div>
+        <h3>Smart Expense Tracker</h3>
+        <p>Transaction ledger with filterable views and interactive spend charts.</p>
+        <div class="capsule-links"><a href="#">Source</a><a href="#">Live demo</a></div>
+      </div>
+    </div>
+  </section>
 
-        // KI POWER UP INTERACTIVE MECHANICS
-        let powerInterval;
-        let powerLevel = 9001;
-        const maxPower = 950000;
-        let isPoweringUp = false;
+  <!-- SKILLS -->
+  <section id="toolbelt" data-idx="5">
+    <div class="pin-node"></div>
+    <div class="sec-head"><span class="sec-num mono">005</span><div><div class="sec-tag">Toolbelt</div><h2>Stack, rated honestly</h2></div></div>
+    <div class="ticket">
+      <div class="tape"></div>
+      <div class="tool-grid">
+        <div class="tool-row"><b>React.js</b><div class="dots" data-n="5"></div></div>
+        <div class="tool-row"><b>JavaScript (ES6+)</b><div class="dots" data-n="5"></div></div>
+        <div class="tool-row"><b>Tailwind / HTML</b><div class="dots" data-n="5"></div></div>
+        <div class="tool-row"><b>MongoDB</b><div class="dots" data-n="4"></div></div>
+        <div class="tool-row"><b>Node / Express</b><div class="dots" data-n="4"></div></div>
+        <div class="tool-row"><b>Git &amp; GitHub</b><div class="dots" data-n="4"></div></div>
+        <div class="tool-row"><b>Firebase</b><div class="dots" data-n="4"></div></div>
+        <div class="tool-row"><b>OOP &amp; DSA</b><div class="dots" data-n="4"></div></div>
+      </div>
+    </div>
+  </section>
 
-        function startPoweringUp(e) {
-            if(e) e.preventDefault();
-            if (isPoweringUp) return;
-            isPoweringUp = true;
-            
-            // Audio start
-            startChargingSound();
-            
-            // Screen Shake trigger on viewport body
-            document.body.classList.add('charging-shake');
-            
-            powerInterval = setInterval(() => {
-                if (powerLevel < maxPower) {
-                    // Ascending step increment
-                    powerLevel += Math.floor(Math.random() * 8000) + 2000;
-                    if (powerLevel > maxPower) powerLevel = maxPower;
-                    
-                    // Update numerical display with comma formatting
-                    document.getElementById('kiPowerLevel').textContent = powerLevel.toLocaleString();
-                    
-                    // Calculate and render progress width percentage
-                    const percent = (powerLevel / maxPower) * 100;
-                    document.getElementById('powerProgressBar').style.width = `${percent}%`;
+  <!-- CONTACT -->
+  <section id="dispatch" data-idx="6">
+    <div class="pin-node"></div>
+    <div class="sec-head"><span class="sec-num mono">006</span><div><div class="sec-tag">Direct line</div><h2>File a request</h2></div></div>
+    <div class="ticket">
+      <div class="tape"></div>
+      <div class="ticket-head"><span class="ticket-num mono">NEW DISPATCH</span><span class="stamp show">Open</span></div>
+      <div class="contact-shell">
+        <div>
+          <div class="field"><label for="f-name">Name</label><input id="f-name" type="text" placeholder="Your name"></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" placeholder="you@company.com"></div>
+          <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" rows="3" placeholder="What are you building?"></textarea></div>
+          <button class="btn btn-primary" type="button" onclick="alert('Design demo — wire this up to a backend or a service like Formspree to make it live.')">Send dispatch</button>
+        </div>
+        <div class="contact-side">
+          <p>Open to full-time roles and freelance builds. Usually replies within a day.</p>
+          <div class="contact-link-row"><b>EMAIL</b> hello@utkarshjha.dev</div>
+          <div class="contact-link-row"><b>GITHUB</b> github.com/utkarshjha</div>
+          <div class="contact-link-row"><b>LINKEDIN</b> in/utkarshjha</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                    // Morph Avatar state if threshold surpassed
-                    if (powerLevel > 150000 && powerLevel < 500000) {
-                        document.getElementById('heroAvatar').className = "w-48 h-48 rounded-full overflow-hidden border-4 border-yellow-500 bg-gray-950 flex items-center justify-center relative aura-active";
-                    } else if (powerLevel >= 500000) {
-                        document.getElementById('heroAvatar').className = "w-48 h-48 rounded-full overflow-hidden border-4 border-sky-400 bg-gray-950 flex items-center justify-center relative ui-aura-active";
-                    }
-                }
-            }, 50);
-        }
+  <!-- FINALE -->
+  <section id="finale">
+    <div class="finale-stamp stamp show" style="transform:rotate(-3deg);">Case closed — for now</div>
+    <h2 class="finale-title">Thanks for reading the file.</h2>
+    <p class="finale-sub">// end of dispatch log</p>
+    <div class="cta-row" style="justify-content:center;">
+      <a class="btn btn-primary" href="#" download>Download résumé</a>
+      <a class="btn btn-ghost" href="#dispatch">Get in touch</a>
+    </div>
+  </section>
 
-        function stopPoweringUp(e) {
-            if(e) e.preventDefault();
-            if (!isPoweringUp) return;
-            isPoweringUp = false;
-            
-            // Stop sound
-            stopChargingSound();
-            
-            // Stop shake animation
-            document.body.classList.remove('charging-shake');
-            
-            clearInterval(powerInterval);
-        }
+</main>
 
-        // TRANSITION STYLING PROTOCOL: BASE SAIYAN TO ULTRA INSTINCT SYSTEM MODE
-        let isUITheme = false;
-        function toggleUltraInstinct() {
-            isUITheme = !isUITheme;
-            const btnText = document.getElementById('form-btn-text');
-            const avatar = document.getElementById('heroAvatar');
-            
-            if (isUITheme) {
-                // Apply Ultra Instinct White/Electric Blue accents across system elements
-                document.body.style.backgroundColor = "#020617"; // Slate 950
-                document.body.style.backgroundImage = "radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.08) 0%, transparent 50%)";
-                btnText.textContent = "BASE SAIYAN";
-                
-                // Boost Avatar visual aura directly
-                avatar.className = "w-48 h-48 rounded-full overflow-hidden border-4 border-sky-400 bg-gray-950 flex items-center justify-center relative ui-aura-active";
-                showNotice("LIMIT BREAK: Ultra Instinct Protocol Activated!");
-            } else {
-                // Restore default DBZ Orange/Amber styles
-                document.body.style.backgroundColor = "#0b0d10";
-                document.body.style.backgroundImage = `
-                    radial-gradient(circle at 20% 30%, rgba(249, 115, 22, 0.08) 0%, transparent 40%),
-                    radial-gradient(circle at 80% 70%, rgba(29, 78, 216, 0.08) 0%, transparent 40%),
-                    radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0)
-                `;
-                btnText.textContent = "LIMIT BREAKER";
-                
-                avatar.className = "w-48 h-48 rounded-full overflow-hidden border-4 border-orange-500/80 bg-gray-950 flex items-center justify-center relative aura-active";
-                showNotice("FORM RESTORED: Base Saiyan Status");
-            }
-        }
+<footer>Designed &amp; built by Utkarsh Jha © 2026.</footer>
 
-        // TRIGGER CLIMATIC SHENRON EVENT
-        function triggerShenronEvent() {
-            playShenronThunder();
-            
-            // Display flash overlays
-            const overlay = document.getElementById('lightningOverlay');
-            overlay.classList.remove('hidden');
-            overlay.classList.add('lightning-flash');
-            
-            // Scroll to top slowly so they witness full visual immersion
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            
-            setTimeout(() => {
-                // Open Shenron Modal
-                document.getElementById('shenronModal').classList.remove('hidden');
-                document.body.classList.add('overflow-hidden'); // Lock scroll behind modal
-                
-                // Keep lightning visual running in background of dark screen
-                document.getElementById('lightningOverlay').classList.remove('lightning-flash');
-                document.getElementById('lightningOverlay').classList.add('hidden');
-            }, 2500);
-        }
-
-        function closeShenronModal() {
-            document.getElementById('shenronModal').classList.add('hidden');
-            document.body.classList.remove('overflow-hidden');
-        }
-
-        // EXECUTING THE CHOSEN WISH STATE
-        function handleWish(wishType) {
-            const output = document.getElementById('wishOutput');
-            output.classList.remove('hidden');
-            
-            if (wishType === 'resume') {
-                output.textContent = "YOUR WISH HAS BEEN HEARD. COMPILING MASTER RESUME FILE VECTORS AND STREAMING TO SYSTEM STORAGE...";
-                // Create custom mock resume download trigger point
-                setTimeout(() => {
-                    alert("Resume Download Initialized Successfully! (Mock File Stream)");
-                    closeShenronModal();
-                }, 2000);
-            } else if (wishType === 'teleport') {
-                output.textContent = "PREPARING TELEPORTATION VECTORS. PRE-ROUTING TRANSCEIVER INPUT TO BASE STATION COHERENCE CORE...";
-                setTimeout(() => {
-                    closeShenronModal();
-                    document.getElementById('telepathy').scrollIntoView({ behavior: 'smooth' });
-                }, 2000);
-            } else if (wishType === 'ui') {
-                output.textContent = "UNLEASHING DIVINE KI CHANNELS. RE-ORDERING VISUAL FRAMEWORK COMPILER MATRIX TO MAXIMUM POTENTIAL...";
-                setTimeout(() => {
-                    closeShenronModal();
-                    if (!isUITheme) toggleUltraInstinct();
-                }, 2000);
-            }
-        }
-
-        // HANDLE CONTACT TRANSMISSIONS
-        function handleContactSubmit(event) {
-            event.preventDefault();
-            const name = document.getElementById('contactName').value;
-            showNotice(`Transmission sent successfully, Warrior ${name}!`);
-            document.getElementById('contactForm').reset();
-        }
-    </script>
 </body>
 </html>
