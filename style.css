@@ -128,7 +128,9 @@
       repeating-linear-gradient(135deg, #d8cfb8, #d8cfb8 8px, #ccc2a6 8px, #ccc2a6 16px);
     border:1px solid rgba(0,0,0,.15); margin-bottom:1rem; display:flex; align-items:center; justify-content:center;
     font-family:'Courier Prime'; font-size:.7rem; color:var(--ink-soft); text-align:center; padding:1rem;
+    overflow:hidden;
   }
+  .id-photo img{width:100%; height:100%; object-fit:cover; object-position:center top; display:block;}
   .id-rows{font-family:'Courier Prime'; font-size:.75rem; display:flex; flex-direction:column; gap:.4rem; border-top:1px dashed #b5ab8f; padding-top:.8rem;}
   .id-rows div{display:flex; justify-content:space-between; color:var(--ink-soft);}
   .id-rows b{color:var(--ink); font-weight:700;}
@@ -194,6 +196,12 @@
     padding:.5rem .1rem; font-family:'IBM Plex Sans'; font-size:.92rem;
   }
   .field input:focus, .field textarea:focus{border-color:var(--stamp);}
+  .form-status{
+    display:none; font-family:'Courier Prime'; font-size:.78rem; color:var(--thread);
+    margin-bottom:.9rem; line-height:1.5;
+  }
+  .form-status.show{display:block;}
+  .form-status.error{color:var(--stamp);}
   .contact-side p{color:#c9c2b0; margin-bottom:1.3rem; max-width:38ch; font-size:.95rem;}
   .contact-link-row{display:flex; align-items:center; gap:.8rem; padding:.75rem 0; border-bottom:1px dashed #4a453d; font-size:.88rem;}
   .contact-link-row b{font-family:'Courier Prime'; color:var(--pin); font-size:.68rem; width:78px; flex-shrink:0;}

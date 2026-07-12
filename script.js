@@ -31,4 +31,41 @@
     });
   }, {threshold:0.35});
   sections.forEach(s=>obs.observe(s));
+
+  // ---- Contact form -> WhatsApp ----
+  // Your WhatsApp number in international format, no + or spaces.
+  const WHATSAPP_NUMBER = "919569080353";
+
+  window.sendDispatch = function(){
+    const nameEl = document.getElementById('f-name');
+    const emailEl = document.getElementById('f-email');
+    const msgEl = document.getElementById('f-msg');
+    const statusEl = document.getElementById('f-status');
+
+    const name = nameEl.value.trim();
+    const email = emailEl.value.trim();
+    const msg = msgEl.value.trim();
+
+    if(!name || !msg){
+      statusEl.textContent = 'Please add your name and a message before sending.';
+      statusEl.classList.add('show','error');
+      (name ? msgEl : nameEl).focus();
+      return;
+    }
+
+    const lines = [
+      `New dispatch from ${name}`,
+      email ? `Email: ${email}` : null,
+      '',
+      msg
+    ].filter(Boolean).join('\n');
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines)}`;
+
+    statusEl.textContent = 'Opening WhatsApp — hit send there to deliver your message.';
+    statusEl.classList.remove('error');
+    statusEl.classList.add('show');
+
+    window.open(url, '_blank', 'noopener');
+  };
 })();

@@ -49,7 +49,9 @@
           <span class="ticket-num mono">FILE NO. 001</span>
           <span class="stamp show">Active</span>
         </div>
-        <div class="id-photo">[ photo goes here ]</div>
+        <div class="id-photo">
+          <img src="assests/profile.jpg" alt="Utkarsh Jha" width="1160" height="912" fetchpriority="high"/>
+        </div>
         <div class="id-rows">
           <div><span>ROLE</span><b>Full-Stack Developer</b></div>
           <div><span>BASE</span><b>Kanpur, IN</b></div>
@@ -135,7 +137,7 @@
      <div class="ticket">
         <div class="tape"></div>
         <div class="ticket-head"><span class="ticket-num mono">FILE / RESUME</span><span class="stamp js-stamp">Live</span></div>
-        <h3>Professional Resume Builder</h3>
+        <h3>Draftly - Professional Resume Builder</h3>
         <p>Live style rendering, automated layout formatting, and a clean PDF export pipeline. Adopted by &gt;50% of my cohort.</p>
         <div class="capsule-links"><a href="#">Source</a><a href="#">Live demo</a></div>
       </div>
@@ -176,7 +178,7 @@
             <li>React.js</li>
             <li>HTML5</li>
             <li>CSS3</li>
-            <li>Bootstrap</li>
+            <li>Tailwind CSS</li>
             <li>Responsive Design</li>
           </ul>
         </div>
@@ -192,8 +194,9 @@
           <h4>Database</h4>
           <ul>
             <li>MongoDB</li>
-            <li>Mongoose</li>
-            <li>Firestore</li>
+            <li>SQL</li>
+            <li>Firebase</li>
+            <li>Cloudinary</li>
           </ul>
         </div>
         <div class="skill-col">
@@ -202,6 +205,13 @@
             <li>Git &amp; GitHub</li>
             <li>VS Code</li>
             <li>Postman</li>
+          </ul>
+        </div>
+        <div class="skill-col">
+          <h4>Concepts</h4>
+          <ul>
+            <li>MVC Architecture</li>
+            <li>CRUD Operations</li>
           </ul>
         </div>
       </div>
@@ -225,15 +235,16 @@
           <div class="field"><label for="f-name">Name</label><input id="f-name" type="text" placeholder="Your name"></div>
           <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" placeholder="you@company.com"></div>
           <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" rows="3" placeholder="What are you building?"></textarea></div>
-          <button class="btn btn-primary" type="button" onclick="alert('Design demo — wire this up to a backend or a service like Formspree to make it live.')">Send dispatch</button>
+          <div id="f-status" class="form-status" aria-live="polite"></div>
+          <button class="btn btn-primary" type="button" onclick="sendDispatch()">Send dispatch</button>
         </div>
         <div class="contact-side">
           <p>Open to full-time roles and freelance builds. Usually replies within a day.</p>
           <div class="contact-link-row"><b>EMAIL</b> utkarshjha832@gmail.com</div>
           <div class="contact-link-row"><b>PHONE</b> +91 95690 80353</div>
           <div class="contact-link-row"><b>LOCATION</b> Kanpur, India</div>
-          <div class="contact-link-row"><b>GITHUB</b> [ add your GitHub URL ]</div>
-          <div class="contact-link-row"><b>LINKEDIN</b> [ add your LinkedIn URL ]</div>
+          <div class="contact-link-row"><b>GITHUB</b> https://github.com/Utkarsh-webdev </div>
+          <div class="contact-link-row"><b>LINKEDIN</b> https://www.linkedin.com/in/jhautkarsh27/ </div>
         </div>
       </div>
     </div>
@@ -245,7 +256,7 @@
     <h2 class="finale-title">Thanks for reading the file.</h2>
     <p class="finale-sub">// end of dispatch log</p>
     <div class="cta-row" style="justify-content:center;">
-      <a class="btn btn-primary" href="#" download>Download résumé</a>
+      <a class="btn btn-primary" href="/assests/Full Stack Developer(UTK).pdf" download>Download résumé</a>
       <a class="btn btn-ghost" href="#dispatch">Get in touch</a>
     </div>
   </section>
