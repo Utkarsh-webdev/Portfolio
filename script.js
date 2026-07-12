@@ -31,23 +31,4 @@
     });
   }, {threshold:0.35});
   sections.forEach(s=>obs.observe(s));
-
-  // toolbelt dots fill on view
-  const dotRows = document.querySelectorAll('.dots');
-  const dotObs = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        const n = parseInt(e.target.getAttribute('data-n'),10);
-        e.target.innerHTML='';
-        for(let i=0;i<5;i++){
-          const d = document.createElement('i');
-          d.style.setProperty('--d', (i*0.08)+'s');
-          if(i<n) setTimeout(()=>d.classList.add('on'), i*90);
-          e.target.appendChild(d);
-        }
-        dotObs.unobserve(e.target);
-      }
-    });
-  }, {threshold:0.4});
-  dotRows.forEach(d=>dotObs.observe(d));
-});
+})();

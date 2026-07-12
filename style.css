@@ -170,17 +170,17 @@
   .capsule-links a{font-size:.78rem; font-weight:700; color:var(--thread); border-bottom:1px solid transparent; font-family:'Space Grotesk';}
   .capsule-links a:hover{border-color:var(--thread);}
 
-  /* ============ SKILLS (toolbelt) ============ */
-  .tool-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1rem 2.4rem;}
-  @media(max-width:700px){.tool-grid{grid-template-columns:1fr;}}
-  .tool-row{display:flex; justify-content:space-between; align-items:center; padding:.7rem 0; border-bottom:1px dashed #4a453d;}
-  .tool-row b{font-family:'Space Grotesk'; font-weight:600; font-size:.92rem; color:var(--paper);}
-  .dots{display:flex; gap:.28rem;}
-  .dots i{
-    width:9px; height:9px; border-radius:50%; background:#413c34; display:block;
-    transition:background .5s var(--ease) var(--d,0s);
-  }
-  .dots i.on{background:var(--pin);}
+  /* ============ SKILLS (toolbelt, categorized) ============ */
+  .skill-cols{display:grid; grid-template-columns:repeat(4,1fr); gap:1.8rem;}
+  @media(max-width:820px){.skill-cols{grid-template-columns:repeat(2,1fr);}}
+  .skill-col h4{font-family:'Courier Prime'; font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; color:var(--stamp); margin-bottom:.9rem;}
+  .skill-col ul{list-style:none;}
+  .skill-col li{font-family:'Space Grotesk'; font-weight:500; font-size:.88rem; color:var(--ink); padding:.4rem 0; border-bottom:1px dashed #b5ab8f;}
+  .skill-col li:last-child{border-bottom:none;}
+  .cert-strip{display:flex; flex-direction:column; gap:.6rem; margin-top:1.8rem; padding-top:1.4rem; border-top:1px dashed #b5ab8f;}
+  .cert-strip .cert-label{font-family:'Courier Prime'; font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; color:var(--stamp); margin-bottom:.3rem;}
+  .cert-row{display:flex; justify-content:space-between; font-size:.85rem; color:var(--ink-soft); flex-wrap:wrap; gap:.3rem;}
+  .cert-row b{color:var(--ink); font-weight:600; font-family:'Space Grotesk';}
 
   /* ============ CONTACT ============ */
   .contact-shell{
