@@ -3,267 +3,339 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Utkarsh Jha — Full-Stack Developer</title>
-<meta name="description" content="Utkarsh Jha · MERN stack developer · Kanpur, India" />
+<title>Utkarsh Jha — Full Stack Developer</title>
+<meta name="description" content="Utkarsh Jha, MCA student and full-stack developer building on the MERN stack in Kanpur, India." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Courier+Prime:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<svg class="thread-svg" id="threadSvg" viewBox="0 0 100 3400" preserveAspectRatio="none">
-  <path id="threadPath" d="M 8,120 L 8,3300" />
-</svg>
+<div class="grid-field" aria-hidden="true"></div>
 
-<header class="hud">
-  <div class="brand">UTKARSH JHA <span>/ dispatch log</span></div>
-  <nav class="links">
+<header class="bar">
+  <div class="bar-mark">UJ</div>
+  <nav class="bar-nav">
     <a href="#about">About</a>
-    <a href="#timeline">Experience</a>
+    <a href="#work">Work</a>
+    <a href="#education">Education</a>
     <a href="#projects">Projects</a>
-    <a href="#toolbelt">Stack</a>
-    <a href="#dispatch">Contact</a>
+    <a href="#stack">Stack</a>
+    <a href="#contact">Contact</a>
   </nav>
-  <div class="log mono">ENTRY <span id="logNum">00</span>/06</div>
+  <a class="bar-cta" href="#contact">Get in touch</a>
 </header>
 
 <main>
 
   <!-- HERO -->
-  <section id="hero" data-idx="1">
-    <div class="pin-node" style="top:6rem;"></div>
+  <section class="sheet hero" id="hero">
+    <div class="sheet-rail"><span>rev 03</span></div>
     <div class="hero-grid">
-      <div>
-        <div class="eyebrow"><span class="dot"></span>OPEN FOR ASSIGNMENT · KANPUR, IN</div>
-        <h1 class="hero-title">Full-stack work,<br><em>filed and shipped.</em></h1>
-        <p class="hero-sub">I build production web apps end to end — <strong>MongoDB, Express, React, Node</strong>, with Firebase where things need to update live. Every project below is a closed ticket, not a demo.</p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="#projects">Open the case files</a>
-          <a class="btn btn-ghost" href="#dispatch">Send a dispatch</a>
+      <div class="hero-copy">
+        <p class="kicker">MCA student, Kanpur — open for internships and freelance builds</p>
+        <h1>I build the parts of a web app<br>that have to actually work.</h1>
+        <p class="hero-lede">Frontend, backend, database, auth — the full run from MongoDB to React. I like features people click on the same day they're shipped.</p>
+        <div class="hero-actions">
+          <a class="btn btn-fill" href="#projects">See what I've built</a>
+          <a class="btn btn-line" href="assets/Full%20Stack%20Developer(UTK).pdf" download>Download résumé</a>
         </div>
       </div>
-      <div class="ticket id-card">
-        <div class="tape"></div>
-        <div class="ticket-head">
-          <span class="ticket-num mono">FILE NO. 001</span>
-          <span class="stamp show">Active</span>
-        </div>
-        <div class="id-photo">
+      <aside class="title-block">
+        <div class="title-photo">
           <img src="assets/profile.jpg" alt="Utkarsh Jha" width="1160" height="912" fetchpriority="high"/>
         </div>
-        <div class="id-rows">
-          <div><span>ROLE</span><b>Full-Stack Developer</b></div>
-          <div><span>BASE</span><b>Kanpur, IN</b></div>
-          <div><span>PROD SITES</span><b>1 live</b></div>
-          <div><span>SHIPPED</span><b>3 projects</b></div>
-          <div><span>ROLES</span><b>2 closed + 1 active</b></div>
-        </div>
-      </div>
+        <dl class="title-fields">
+          <div><dt>Name</dt><dd>Utkarsh Jha</dd></div>
+          <div><dt>Role</dt><dd>Full-Stack Developer</dd></div>
+          <div><dt>Base</dt><dd>Kanpur, India</dd></div>
+          <div><dt>Stack</dt><dd>MERN + Firebase</dd></div>
+          <div><dt>Live site</dt><dd>1 maintained</dd></div>
+        </dl>
+      </aside>
     </div>
   </section>
 
   <!-- ABOUT -->
-  <section id="about" data-idx="2">
-    <div class="pin-node"></div>
-    <div class="sec-head"><span class="sec-num mono">002</span><div><div class="sec-tag">Case summary</div><h2>The short version</h2></div></div>
-    <div class="ticket about-ticket">
-      <div class="tape" style="right:auto; left:34px;"></div>
-      <div class="ticket-head">
-        <span class="ticket-num mono">SUBJECT: JHA, U.</span>
-        <span class="stamp show">On file</span>
+  <section class="sheet" id="about">
+    <div class="sheet-rail"><span>01</span></div>
+    <h2 class="sheet-title">Summary</h2>
+    <div class="about-grid">
+      <div class="about-copy">
+        <p>I'm an MCA student working across the MERN stack — MongoDB, Express, React, Node — with Firebase for the projects that need real-time data. Most of what I know came from shipping things other people actually use, not just tutorials.</p>
+        <p>I maintain the live website for <strong>Dr. Virendra Swarup Institute of Computer Studies</strong>, fixing real bugs reported by students and faculty. I also built <strong>Draftly</strong>, a resume builder now used by more than half my MCA class.</p>
       </div>
-      <div class="about-grid">
-        <div class="about-copy">
-          <p>Full-stack developer working across the <strong>MERN stack</strong> — MongoDB, Express.js, React.js, Node.js — with Firebase on the side, built up over three internships and several independent projects.</p>
-          <p>Currently the developer of record for the <span class="redline">Dr. Virendra Swarup Institute of Computer Studies</span> site — a live, ongoing assignment handling real design and bug fixes for actual students and faculty. Also built and maintain a resume builder web app adopted by <span class="redline">more than 50% of my MCA class</span>.</p>
-        </div>
-        <div class="stat-list">
-          <div class="stat-row"><span>Focus</span><b>Full-Stack MERN</b></div>
-          <div class="stat-row"><span>Class adoption</span><b>&gt;50% (Draftly)</b></div>
-          <div class="stat-row"><span>Live production</span><b>1 site (VSICS)</b></div>
-          <div class="stat-row"><span>Bugs fixed (VSICS)</span><b>16 in 3 months</b></div>
-        </div>
-      </div>
+      <dl class="fact-strip">
+        <div><dt>Class adoption</dt><dd>&gt;50% use Draftly</dd></div>
+        <div><dt>Bugs closed</dt><dd>16 in 3 months</dd></div>
+        <div><dt>Live systems</dt><dd>1 institute website</dd></div>
+      </dl>
     </div>
   </section>
 
-  <!-- TIMELINE -->
-  <section id="timeline" data-idx="3">
-    <div class="pin-node"></div>
-    <div class="sec-head"><span class="sec-num mono">003</span><div><div class="sec-tag">Chronology</div><h2>Work, in order</h2></div></div>
-    <div class="tl-wrap">
-      <div class="tl-item">
-        <div class="ticket">
-          <div class="tape"></div>
-          <div class="ticket-head"><span class="ticket-num mono">MAR 2026 – PRESENT</span><span class="stamp js-stamp">Active</span></div>
-          <div class="t-tag">Volunteer</div>
-          <h3>Web Developer</h3>
-          <div class="t-org">Dr. Virendra Swarup Institute of Computer Studies</div>
-          <p>Maintain and improve the college's live website — built the navigation, results, event-gallery, and notice-board sections, redesigned the admissions page to cut reported layout issues on mobile, and fixed 16 reported bugs across the site in 3 months.</p>
-          <div class="chips"><span class="chip">Firebase</span><span class="chip">Express.js</span><span class="chip">Node.js</span></div>
+  <!-- EDUCATION -->
+  <section class="sheet" id="education">
+    <div class="sheet-rail"><span>02</span></div>
+    <h2 class="sheet-title">Education</h2>
+    <div class="stack-list">
+      <article class="stack-row">
+        <div class="stack-when">2025–2027<span class="tag tag-live">In progress</span></div>
+        <div class="stack-what">
+          <h3>Master of Computer Applications</h3>
+          <p>Dr. Virendra Swarup Institute of Computer Studies, Kanpur</p>
         </div>
-      </div>
-      <div class="tl-item">
-        <div class="ticket">
-          <div class="tape" style="right:auto; left:30px;"></div>
-          <div class="ticket-head"><span class="ticket-num mono">SEP – DEC 2025</span><span class="stamp js-stamp">Closed</span></div>
-          <div class="t-tag">Full-Time</div>
-          <h3>Full Stack Developer</h3>
-          <div class="t-org">Infotact</div>
-          <p>Led a 3-member team to build HealthSync, a health and body-mass assessment app that evaluates BMI and generates a personalized diet plan. Owned the frontend architecture while coordinating backend integration with two teammates.</p>
-          <div class="chips"><span class="chip">React (Vite)</span><span class="chip">Tailwind</span><span class="chip">Node.js</span><span class="chip">Express.js</span><span class="chip">MongoDB</span><span class="chip">JWT</span></div>
+      </article>
+      <article class="stack-row">
+        <div class="stack-when">2021–2024<span class="tag">Completed</span></div>
+        <div class="stack-what">
+          <h3>Bachelor of Science</h3>
+          <p>Dayanand Brajendra Swarup College, Kanpur</p>
         </div>
-      </div>
-      <div class="tl-item">
-        <div class="ticket">
-          <div class="tape"></div>
-          <div class="ticket-head"><span class="ticket-num mono">JUN – JUL 2025</span><span class="stamp js-stamp">Closed</span></div>
-          <div class="t-tag">Internship</div>
-          <h3>Web Developer Intern</h3>
-          <div class="t-org">Ezaybytes</div>
-          <p>Built "Eventora," an event-scheduling app using React.js and Firebase for real-time data. Users create events, RSVP, and get reminders — no page reload needed.</p>
-          <div class="chips"><span class="chip">React.js</span><span class="chip">Firebase</span></div>
+      </article>
+      <article class="stack-row">
+        <div class="stack-when">2019–2021<span class="tag">Completed</span></div>
+        <div class="stack-what">
+          <h3>Intermediate</h3>
+          <p>B.N.S.D Inter College, Kanpur</p>
         </div>
-      </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="sheet" id="work">
+    <div class="sheet-rail"><span>03</span></div>
+    <h2 class="sheet-title">Work, in order</h2>
+    <div class="stack-list">
+      <article class="stack-row">
+        <div class="stack-when">Mar 2026 — present<span class="tag tag-live">Active</span></div>
+        <div class="stack-what">
+          <h3>Web Developer, Dr. Virendra Swarup Institute of Computer Studies</h3>
+          <p>Maintain the college's live site — built the navigation, results, event-gallery and notice-board sections, redesigned the admissions page, and closed 16 reported bugs in 3 months.</p>
+          <div class="chips"><span>Firebase</span><span>Express.js</span><span>Node.js</span></div>
+        </div>
+      </article>
+      <article class="stack-row">
+        <div class="stack-when">Sep–Dec 2025<span class="tag">Closed</span></div>
+        <div class="stack-what">
+          <h3>Full Stack Developer, Infotact</h3>
+          <p>Led a 3-person team building HealthSync, a BMI and diet-planning app. Owned the frontend architecture and coordinated backend integration with two teammates.</p>
+          <div class="chips"><span>React (Vite)</span><span>Tailwind</span><span>Node.js</span><span>Express.js</span><span>MongoDB</span><span>JWT</span></div>
+        </div>
+      </article>
+      <article class="stack-row">
+        <div class="stack-when">Jun–Jul 2025<span class="tag">Closed</span></div>
+        <div class="stack-what">
+          <h3>Web Developer Intern, Ezaybytes</h3>
+          <p>Built Eventora, an event-scheduling app with real-time data in Firebase — event creation, RSVP, and reminders.</p>
+          <div class="chips"><span>React.js</span><span>Firebase</span></div>
+        </div>
+      </article>
     </div>
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects" data-idx="4">
-    <div class="pin-node"></div>
-    <div class="sec-head"><span class="sec-num mono">004</span><div><div class="sec-tag">Case files</div><h2>Things I've shipped</h2></div></div>
-    <div class="proj-grid">
-     <div class="ticket">
-        <div class="tape"></div>
-        <div class="ticket-head"><span class="ticket-num mono">FILE / RESUME</span><span class="stamp js-stamp">Live</span></div>
-        <h3>Draftly - Professional Resume Builder</h3>
-        <p>Live style rendering, automated layout formatting, and a clean PDF export pipeline. Adopted by &gt;50% of my cohort.</p>
-        <div class="capsule-links"><a href="#">Source</a><a href="#">Live demo</a></div>
-      </div>
-      <div class="ticket">
-        <div class="tape" style="right:auto; left:30px;"></div>
-        <div class="ticket-head"><span class="ticket-num mono">FILE / CLINIC</span><span class="stamp js-stamp">Live</span></div>
-        <h3>DocTime Appointment Portal</h3>
-        <p>Healthcare booking platform with clinical scheduling, live physician availability, and real-time slot tracking.</p>
-        <div class="capsule-links"><a href="#">Source</a><a href="#">Live demo</a></div>
-      </div>
-      <div class="ticket">
-        <div class="tape"></div>
-        <div class="ticket-head"><span class="ticket-num mono">FILE / VISION</span><span class="stamp js-stamp">Shipped</span></div>
-        <h3>VisionGPT Intelligent UI</h3>
-        <p>AI-wrapper interface built for fast image classification and streaming prompt responses.</p>
-        <div class="capsule-links"><a href="#">Source</a><a href="#">Live demo</a></div>
-      </div>
-      <div class="ticket">
-        <div class="tape" style="right:auto; left:30px;"></div>
-        <div class="ticket-head"><span class="ticket-num mono">FILE / DBZ</span><span class="stamp js-stamp">Live</span></div>
-        <h3>Dragon Ball Inspired Personal Portfolio</h3>
-        <p>A fully responsive personal portfolio inspired by the Dragon Ball universe, showcasing projects, skills, certifications, and experience — built with a focus on modern UI/UX and smooth animation.</p>
-        <div class="capsule-links"><a href="#">Live demo</a></div>
-      </div>
-    </div>
-  </section>
+<!-- PROJECTS -->
+<section class="sheet" id="projects">
+  <div class="sheet-rail"><span>04</span></div>
 
-  <!-- SKILLS -->
-  <section id="toolbelt" data-idx="5">
-    <div class="pin-node"></div>
-    <div class="sec-head"><span class="sec-num mono">005</span><div><div class="sec-tag">Toolbelt</div><h2>Stack, rated honestly</h2></div></div>
-    <div class="ticket">
-      <div class="tape"></div>
-      <div class="skill-cols">
-        <div class="skill-col">
-          <h4>Frontend</h4>
-          <ul>
-            <li>React.js</li>
-            <li>HTML5</li>
-            <li>CSS3</li>
-            <li>Tailwind CSS</li>
-            <li>Responsive Design</li>
-          </ul>
-        </div>
-        <div class="skill-col">
-          <h4>Backend</h4>
-          <ul>
-            <li>Node.js</li>
-            <li>Express.js</li>
-            <li>RESTful APIs</li>
-          </ul>
-        </div>
-        <div class="skill-col">
-          <h4>Database</h4>
-          <ul>
-            <li>MongoDB</li>
-            <li>SQL</li>
-            <li>Firebase</li>
-            <li>Cloudinary</li>
-          </ul>
-        </div>
-        <div class="skill-col">
-          <h4>Tools</h4>
-          <ul>
-            <li>Git &amp; GitHub</li>
-            <li>VS Code</li>
-            <li>Postman</li>
-          </ul>
-        </div>
-        <div class="skill-col">
-          <h4>Concepts</h4>
-          <ul>
-            <li>MVC Architecture</li>
-            <li>CRUD Operations</li>
-          </ul>
-        </div>
+  <h2 class="sheet-title">Things I've shipped</h2>
+
+  <div class="proj-list">
+
+    
+    <!-- Smart City -->
+    <article class="proj-row">
+      <h3>Smart City Defect Detection AI</h3>
+
+      <p>
+        AI-focused project aimed at detecting and identifying defects in
+        smart-city infrastructure. Combines software development with
+        computer-vision-oriented problem solving for practical urban
+        infrastructure monitoring.
+      </p>
+
+      <div class="proj-links">
+        <a
+          href="https://github.com/Utkarsh-webdev/smart-city-defect-detection-ai"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source
+        </a>
       </div>
-      <div class="cert-strip">
-        <div class="cert-label">Certifications</div>
-        <div class="cert-row"><span>AI Fluency Framework &amp; Foundations</span><b>Anthropic · 2026</b></div>
-        <div class="cert-row"><span>Introduction to Agent Skills</span><b>Anthropic · 2026</b></div>
+    </article>
+
+    <!-- Resume Builder -->
+    <article class="proj-row">
+      <h3>Draftly — Résumé Builder</h3>
+
+      <p>
+        Resume-building web application designed for creating professional
+        resumes through customizable templates. Provides a structured
+        interface for entering resume information and generating polished
+        resume output.
+      </p>
+
+      <div class="proj-links">
+        <a
+          href="https://github.com/Utkarsh-webdev/Resume-Builder"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source
+        </a>
+
+        <a
+          href="https://resume-builder-livid-alpha.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Live demo
+        </a>
       </div>
+    </article>
+
+    <!-- News Portal -->
+    <article class="proj-row">
+      <h3>News Portal</h3>
+
+      <p>
+        Full-stack news publishing platform for creating, organizing, and
+        displaying articles by category. Includes admin authentication,
+        article management, category management, and a responsive editorial
+        interface.
+      </p>
+
+      <div class="proj-links">
+        <a
+          href="https://github.com/Utkarsh-webdev/News-Portal"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source
+        </a>
+
+        <a
+          href="https://news-portal-indol-beta.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Live demo
+        </a>
+      </div>
+    </article>
+
+    <!-- DocTime -->
+    <article class="proj-row">
+      <h3>DocTime — Appointment Portal</h3>
+
+      <p>
+        Full-stack doctor appointment platform connecting patients and
+        healthcare professionals through a structured appointment workflow.
+        Built as a role-based web application with separate user experiences
+        for managing appointments and platform operations.
+      </p>
+
+      <div class="proj-links">
+        <a
+          href="https://github.com/Utkarsh-webdev/Doc-Place"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source
+        </a>
+
+        <a
+          href="https://doc-time-5k2x.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Live demo
+        </a>
+      </div>
+    </article>
+
+
+    <!-- VisionGPT -->
+    <article class="proj-row">
+      <h3>VisionGPT — AI Application</h3>
+
+      <p>
+        Full-stack AI application focused on bringing intelligent
+        conversational functionality into a modern web interface. Connects
+        frontend interaction with backend services to create an interactive
+        AI-powered experience.
+      </p>
+
+      <div class="proj-links">
+        <a
+          href="https://github.com/Utkarsh-webdev/VisionGPT"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Source
+        </a>
+
+        <a
+          href="https://vision-gpt-pied.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Live demo
+        </a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+  <!-- STACK -->
+  <section class="sheet" id="stack">
+    <div class="sheet-rail"><span>05</span></div>
+    <h2 class="sheet-title">Stack, rated honestly</h2>
+    <div class="skill-cols">
+      <div><h4>Frontend</h4><ul><li>React.js</li><li>HTML5</li><li>CSS3</li><li>Tailwind CSS</li><li>Responsive design</li></ul></div>
+      <div><h4>Backend</h4><ul><li>Node.js</li><li>Express.js</li><li>RESTful APIs</li></ul></div>
+      <div><h4>Database</h4><ul><li>MongoDB</li><li>SQL</li><li>Firebase</li><li>Cloudinary</li></ul></div>
+      <div><h4>Tools</h4><ul><li>Git &amp; GitHub</li><li>VS Code</li><li>Postman</li></ul></div>
+      <div><h4>Concepts</h4><ul><li>MVC architecture</li><li>CRUD operations</li></ul></div>
     </div>
+    <dl class="fact-strip cert-strip">
+      <div><dt>AI Fluency Framework &amp; Foundations</dt><dd>Anthropic, 2026</dd></div>
+      <div><dt>Introduction to Agent Skills</dt><dd>Anthropic, 2026</dd></div>
+    </dl>
   </section>
 
   <!-- CONTACT -->
-  <section id="dispatch" data-idx="6">
-    <div class="pin-node"></div>
-    <div class="sec-head"><span class="sec-num mono">006</span><div><div class="sec-tag">Direct line</div><h2>File a request</h2></div></div>
-    <div class="ticket">
-      <div class="tape"></div>
-      <div class="ticket-head"><span class="ticket-num mono">NEW DISPATCH</span><span class="stamp show">Open</span></div>
-      <div class="contact-shell">
-        <div>
-          <div class="field"><label for="f-name">Name</label><input id="f-name" type="text" placeholder="Your name"></div>
-          <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" placeholder="you@company.com"></div>
-          <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" rows="3" placeholder="What are you building?"></textarea></div>
-          <div id="f-status" class="form-status" aria-live="polite"></div>
-          <button class="btn btn-primary" type="button" onclick="sendDispatch()">Send dispatch</button>
-        </div>
-        <div class="contact-side">
-          <p>Open to full-time roles and freelance builds. Usually replies within a day.</p>
-          <div class="contact-link-row"><b>EMAIL</b> utkarshjha832@gmail.com</div>
-          <div class="contact-link-row"><b>PHONE</b> +91 95690 80353</div>
-          <div class="contact-link-row"><b>LOCATION</b> Kanpur, India</div>
-          <div class="contact-link-row"><b>GITHUB</b> https://github.com/Utkarsh-webdev </div>
-          <div class="contact-link-row"><b>LINKEDIN</b> https://www.linkedin.com/in/jhautkarsh27/ </div>
-        </div>
+  <section class="sheet" id="contact">
+    <div class="sheet-rail"><span>06</span></div>
+    <h2 class="sheet-title">Get in touch</h2>
+    <div class="contact-grid">
+      <form class="contact-form" onsubmit="return false;">
+        <div class="field"><label for="f-name">Name</label><input id="f-name" type="text" placeholder="Your name"></div>
+        <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" placeholder="you@company.com"></div>
+        <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" rows="3" placeholder="What are you building?"></textarea></div>
+        <div id="f-status" class="form-status" aria-live="polite"></div>
+        <button class="btn btn-fill" type="button" onclick="sendMessage()">Send message</button>
+      </form>
+      <div class="contact-side">
+        <p>Open to full-time roles and freelance builds. Usually replies within a day.</p>
+        <dl class="contact-list">
+          <div><dt>Email</dt><dd><a href="mailto:utkarshjha832@gmail.com">utkarshjha832@gmail.com</a></dd></div>
+          <div><dt>Phone</dt><dd>+91 95690 80353</dd></div>
+          <div><dt>Location</dt><dd>Kanpur, India</dd></div>
+          <div><dt>GitHub</dt><dd><a href="https://github.com/Utkarsh-webdev" target="_blank" rel="noopener noreferrer">Utkarsh-webdev</a></dd></div>
+          <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/jhautkarsh27/" target="_blank" rel="noopener noreferrer">jhautkarsh27</a></dd></div>
+        </dl>
       </div>
-    </div>
-  </section>
-
-  <!-- FINALE -->
-  <section id="finale">
-    <div class="finale-stamp stamp show" style="transform:rotate(-3deg);">Case closed — for now</div>
-    <h2 class="finale-title">Thanks for reading the file.</h2>
-    <p class="finale-sub">// end of dispatch log</p>
-    <div class="cta-row" style="justify-content:center;">
-      <a class="btn btn-primary" href="assets/Full%20Stack%20Developer(UTK).pdf" download>Download résumé</a>
-      <a class="btn btn-ghost" href="#dispatch">Get in touch</a>
     </div>
   </section>
 
 </main>
 
-<footer>Designed &amp; built by Utkarsh Jha © 2026.</footer>
+<footer>Designed &amp; built by Utkarsh Jha, 2026.</footer>
 <script src="script.js"></script>
 
 </body>
